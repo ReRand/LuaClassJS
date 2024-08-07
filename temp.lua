@@ -176,23 +176,27 @@ class "User" {
   constructor = function(self, name)
     self.Username = name;
   end,
+
+  Test2 = function(...)
+    return ...;
+  end
   
   a = "b"
 };
 
 
 User.Test = function(...)
-  print(...);
+  return ...;
 end
-
-
-User.__name = "Test";
 
 
 local user = new "User"("dave");
 
 
 print(user.Test("a", "b"));
+print(user.Test2("c", "d"));
+
+print(user.Username);
 
 
 
