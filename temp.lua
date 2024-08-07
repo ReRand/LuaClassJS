@@ -85,6 +85,10 @@ function Class(n)
 end
 
 
+function Get(n)
+end
+
+
 function New(name) return function(...)
   
   local c = _G.Protos[name];
@@ -115,10 +119,8 @@ function Prototype.new(name) return function(p)
   local proto = {};
   
   for k, v in pairs(p) do
-    if type(v) == "function" then
-      proto[k] = v;
-      p[k] = nil;
-    end
+    proto[k] = v;
+    p[k] = nil;
   end
   
   p.__index = __realindex;
@@ -170,18 +172,21 @@ Class "User" {
     self.Username = name;
   end,
   
-  Test2 = function(self, ...);
-    print(...);
-  end
+  Test = function(self, ...)
+    return ...;
+  end,
+  
+  a = "b"
 };
-
-function User.Test(self, ...);
-  print(...);
-end
 
 
 local user = New "User"("dave");
 
-user.Test("a", "b");
-user.Test2("c", "d");
+
+print(user.Test("a", "b"));
+
+print(user.a);
+
+
+
 
