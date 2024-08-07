@@ -179,7 +179,7 @@ class "User" {
 
   Test2 = function(...)
     return ...;
-  end
+  end,
   
   a = "b"
 };
