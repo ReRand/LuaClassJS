@@ -4,7 +4,6 @@ Prototype.__index = Prototype;
 
 function __realnewindex(table, key, value)
   if key == "__name" then
-    
     local oldName = rawget(table, "__name");
     
     if oldName then
@@ -93,6 +92,10 @@ function new(name) return function(...)
   
   local c = _G.Protos[name];
   
+  if not c then
+    error("Class \""..name.."\" not found in globals while trying to create a new instance.");
+  end
+  
   local self = setmetatable({}, c);
   
   self.__name = c.__name;
@@ -114,6 +117,8 @@ end end
 
 
 function Prototype.new(name) return function(p)
+  if not p then p = {} end;
+  
   Prototype.__index = Prototype;
   
   local proto = {};
@@ -172,23 +177,22 @@ class "User" {
     self.Username = name;
   end,
   
-  Test = function(self, ...)
-    return ...;
-  end,
-  
   a = "b"
 };
+
+
+User.Test = function(...)
+  print(...);
+end
+
+
+User.__name = "Test";
 
 
 local user = new "User"("dave");
 
 
 print(user.Test("a", "b"));
-
-print(user.a);
-
-print(user.Username);
-
 
 
 
