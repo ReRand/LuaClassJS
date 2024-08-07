@@ -3,9 +3,9 @@ Prototype.__index = Prototype;
 
 
 function __realnewindex(table, key, value)
-  if key == "name" then
+  if key == "__name" then
     
-    local oldName = rawget(table, "name");
+    local oldName = rawget(table, "__name");
     
     if oldName then
       _G.Protos[oldName] = nil;
@@ -13,12 +13,12 @@ function __realnewindex(table, key, value)
     
     _G.Protos[value] = table;
     
-    return rawset(table, "name", value);
+    return rawset(table, "__name", value);
   end
   
   
   if type(value) == "function" then
-    table.prototype[key] = function(...)
+    table.__prototype[key] = function(...)
       value(...);
     end
   
@@ -31,22 +31,22 @@ end
 function __realindex(table, key)
   
   if key == "constructor" then
-    rawset(table.prototype, "constructor", nil);
+    rawset(table.__prototype, "constructor", nil);
     rawset(table, "constructor", nil);
   
-    function table.prototype:constructor(...)
+    function table.__prototype:constructor(...)
       return constructor(table, ...);
     end
     
   
-  elseif rawget(table.prototype, key)  and not rawget(table, key) then
+  elseif rawget(table.__prototype, key)  and not rawget(table, key) then
     
-    if type(rawget(table.prototype, key)) == "function" then
+    if type(rawget(table.__prototype, key)) == "function" then
       return function(...) 
-        return rawget(table.prototype, key)(table, ...);
+        return rawget(table.__prototype, key)(table, ...);
       end
     else
-      return rawget(table.prototype, key);
+      return rawget(table.__prototype, key);
     end
   
   
@@ -95,15 +95,15 @@ function new(name) return function(...)
   
   local self = setmetatable({}, c);
   
-  self.name = c.name;
-  self.prototype = c.prototype;
+  self.__name = c.__name;
+  self.__prototype = c.__prototype;
   
   self.__index = __realindex;
   self.__newindex = __realnewindex;
   
-  table.insert(c.instances, self);
+  table.insert(c.__instances, self);
   
-  local ret = rawget(self.prototype, "constructor")(self, ...);
+  local ret = rawget(self.__prototype, "constructor")(self, ...);
   
   if not ret then
     return self;
@@ -127,9 +127,9 @@ function Prototype.new(name) return function(p)
   p.__newindex = __realnewindex;
   
   local self = setmetatable(p, Prototype);
-  self.name = name;
-  self.instances = {};
-  self.prototype = proto;
+  self.__name = name;
+  self.__instances = {};
+  self.__prototype = proto;
   
   Prototype.__index = __realindex;
   Prototype.__newindex = __realnewindex;
@@ -138,29 +138,29 @@ function Prototype.new(name) return function(p)
   self.__newindex = __realnewindex;
   
   
-  if not rawget(self, "constructor") and not rawget(self.prototype, "constructor") then
-    function self.prototype.constructor() end
+  if not rawget(self, "constructor") and not rawget(self.__prototype, "constructor") then
+    function self.__prototype.constructor() end
     
     
-  elseif rawget(self, "constructor") or rawget(self.prototype, "constructor") then
+  elseif rawget(self, "constructor") or rawget(self.__prototype, "constructor") then
     local constructor;
     
     if rawget(self, "constructor") then
       constructor = rawget(self, "constructor");
     else
-      constructor = rawget(self.prototype, "constructor");
+      constructor = rawget(self.__prototype, "constructor");
     end
     
     rawset(self, "constructor", nil);
-    rawset(self.prototype, "constructor", nil);
+    rawset(self.__prototype, "constructor", nil);
     
-    function self.prototype.constructor(...)
+    function self.__prototype.constructor(...)
       return constructor(...);
     end
   end
   
   
-  _G.Protos[self.name] = self;
+  _G.Protos[self.__name] = self;
   
   return self;
 
@@ -186,6 +186,9 @@ local user = new "User"("dave");
 print(user.Test("a", "b"));
 
 print(user.a);
+
+print(user.Username);
+
 
 
 
