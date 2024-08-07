@@ -18,7 +18,7 @@ function __realnewindex(table, key, value)
   
   if type(value) == "function" then
     table.__prototype[key] = function(...)
-      value(...);
+      return value(...);
     end
   
   else
