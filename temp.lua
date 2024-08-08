@@ -13,6 +13,17 @@ function tid(t)
   return tostring(t):gsub("table: ", "", 1)
 end
 
+function fid(f)
+  return tostring(f):gsub("function: ", "", 1);
+end
+
+
+function fname(m)
+  for k, v in pairs(_G) do
+    if m == v then return k; end
+  end
+end
+
 
 function dump(o, layer)
   
@@ -45,6 +56,15 @@ function dump(o, layer)
           
            if type(k) ~= 'number' and string.match(k, " ") then k = '"'..k..'"' end;
            if type(v) == "string" then v = '"'..v..'"' end;
+           if type(v) == "function" then
+             local mName = fname(v);
+             
+             if mName then
+               v = mName .. "() (f" .. fid(v) .. ")";
+             else
+               v = "function() (f" .. fid(v) .. ")";
+              end
+           end
            s = s .. t .. k ..': ' .. dump(v, layer+1) .. e;
         -- end
       end
@@ -64,7 +84,7 @@ function __prototostring(table) return function()
   local d = dump(table);
   
   if table.__name then
-    return table.__name .. " ("..tid(table)..") " .. d
+    return table.__name .. " (c"..tid(table)..") " .. d
   end
   
   return dump(table);
@@ -196,37 +216,6 @@ function get(n)
 end
 
 
-function new(name) return function(...)
-  
-  local c = _G.Protos[name];
-  
-  if not c then
-    error("Class \""..name.."\" not found in globals while trying to create a new instance.");
-  end
-  
-  local self = setmetatable({}, c);
-  
-  self.__name = c.__name;
-  self.__prototype = c.__prototype;
-  
-  self.__index = __metaindex;
-  self.__newindex = __metanewindex;
-  self.__tostring = __prototostring(self);
-  
-  if c.__instances then
-    -- table.insert(c.__instances, self);
-  end
-  
-  local ret = rawget(self.__prototype, "constructor")(self, ...);
-  
-  if not ret then
-    return self;
-  else
-    return ret;
-  end
-end end
-
-
 function Prototype.new(name) return function(p)
   if not p then p = {} end;
   
@@ -283,22 +272,52 @@ function Prototype.new(name) return function(p)
   return self;
 
 end end
+  
+  
+function new(name) return (function(...)
+  
+  local c = _G.Protos[name];
+  
+  if not c then
+    error("Class \""..name.."\" not found in globals while trying to create a new instance.");
+  end
+  
+  local self = setmetatable({}, c);
+  
+  self.__name = c.__name;
+  self.__prototype = c.__prototype;
+  
+  self.__index = __metaindex;
+  self.__newindex = __metanewindex;
+  self.__tostring = __prototostring(self);
+  
+  if c.__instances then
+    -- table.insert(c.__instances, self);
+  end
+  
+  local ret = rawget(self.__prototype, "constructor")(self, ...);
+  
+  if not ret then
+    return self;
+  else
+    return ret;
+  end
+end) end
+
+-- function new(name) return __new end
 
 
 class "User" {
   constructor = function(self, name)
     self.Username = name;
-    return self;
   end
 };
 
 
 local user1 = new "User"("dave");
+local user2 = new "User"("jim");
 
+-- print(GetMethodName(user2.__tostring));
 
-print(user1);
-
-
-
-
+print(User);
 
