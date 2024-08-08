@@ -177,7 +177,7 @@ class "User" {
     self.Username = name;
   end,
 
-  Test2 = function(...)
+  Test2 = function(self, ...)
     return ...;
   end,
   
@@ -185,7 +185,7 @@ class "User" {
 };
 
 
-User.Test = function(...)
+User.Test = function(self, ...)
   return ...;
 end
 
