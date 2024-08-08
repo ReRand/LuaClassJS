@@ -319,5 +319,5 @@ local user2 = new "User"("jim");
 
 -- print(GetMethodName(user2.__tostring));
 
-print(User);
+print(user1);
 
