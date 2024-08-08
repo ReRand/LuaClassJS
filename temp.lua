@@ -2,7 +2,59 @@ local Prototype = {};
 Prototype.__index = Prototype;
 
 
-function __realnewindex(table, key, value)
+function pad(o, t, l)
+  local x = o;
+  x = (t):rep(l-x:len())..x;
+  return x;
+end
+
+
+function dump(o, layer)
+  
+  if not layer then layer = 1; end
+  
+  local t = pad("", "\t", layer);
+  local lastt = pad("", "\t", layer-1);
+  
+   if type(o) == 'table' then
+      local s = '{ '
+      
+      local li = 0;
+      
+      for _ in pairs(o) do li = li + 1 end
+      
+      local i = 0;
+      for k,v in pairs(o) do
+        
+        if not string.match(k, "__") then
+        
+           i = i + 1;
+           
+           local e = "\n";
+           
+           if i ~= li then
+             e = ","..e;
+           end
+          
+           if type(k) ~= 'number' then k = '"'..k..'"' end
+           s = s .. '\n'..t..k..': ' .. dump(v, layer+1) .. e
+          end
+      end
+      return s .. lastt .. '}'
+   else
+      return tostring(o)
+   end
+end
+
+
+function __prototostring(table)
+  if table.__name then
+    return dump(table);
+  end
+end
+
+
+function __protonewindex(table, key, value)
   if key == "__name" then
     local oldName = rawget(table, "__name");
     
@@ -18,7 +70,7 @@ function __realnewindex(table, key, value)
   
   if type(value) == "function" then
     table.__prototype[key] = function(...)
-      return value(...);
+      return value(table, ...);
     end
   
   else
@@ -27,14 +79,14 @@ function __realnewindex(table, key, value)
 end
 
 
-function __realindex(table, key)
+function __protoindex(table, key)
   
   if key == "constructor" then
     rawset(table.__prototype, "constructor", nil);
     rawset(table, "constructor", nil);
   
     function table.__prototype:constructor(...)
-      return constructor(table, ...);
+      return constructor(...);
     end
     
   
@@ -42,7 +94,46 @@ function __realindex(table, key)
     
     if type(rawget(table.__prototype, key)) == "function" then
       return function(...) 
-        return rawget(table.__prototype, key)(table, ...);
+        return rawget(table.__prototype, key)(...);
+      end
+    else
+      return rawget(table.__prototype, key);
+    end
+  
+  
+  else
+    return rawget(table, key);
+  end
+end
+
+
+function __metanewindex(table, key, value)
+  if type(value) == "function" then
+    table[key] = function(...)
+      return value(table, ...);
+    end
+  
+  else
+    return rawset(table, key, value);
+  end
+end
+
+
+function __metaindex(table, key)
+  
+  if key == "constructor" then
+    rawset(table, "constructor", nil);
+  
+    function table:constructor(...)
+      return constructor(...);
+    end
+    
+  
+  elseif rawget(table.__prototype, key)  and not rawget(table, key) then
+    
+    if type(rawget(table.__prototype, key)) == "function" then
+      return function(...) 
+        return rawget(table.__prototype, key)(...);
       end
     else
       return rawget(table.__prototype, key);
@@ -101,10 +192,13 @@ function new(name) return function(...)
   self.__name = c.__name;
   self.__prototype = c.__prototype;
   
-  self.__index = __realindex;
-  self.__newindex = __realnewindex;
+  self.__index = __metaindex;
+  self.__newindex = __metanewindex;
+  self.__tostring = dump;
   
-  table.insert(c.__instances, self);
+  if c.__instances then
+    -- table.insert(c.__instances, self);
+  end
   
   local ret = rawget(self.__prototype, "constructor")(self, ...);
   
@@ -128,19 +222,20 @@ function Prototype.new(name) return function(p)
     p[k] = nil;
   end
   
-  p.__index = __realindex;
-  p.__newindex = __realnewindex;
+  p.__index = __protoindex;
+  p.__newindex = __protonewindex;
   
   local self = setmetatable(p, Prototype);
   self.__name = name;
   self.__instances = {};
   self.__prototype = proto;
   
-  Prototype.__index = __realindex;
-  Prototype.__newindex = __realnewindex;
+  Prototype.__index = __protoindex;
+  Prototype.__newindex = __protonewindex;
   
-  self.__index = __realindex;
-  self.__newindex = __realnewindex;
+  self.__index = __protoindex;
+  self.__newindex = __protonewindex;
+  self.__tostring = __prototostring(self);
   
   
   if not rawget(self, "constructor") and not rawget(self.__prototype, "constructor") then
@@ -175,29 +270,12 @@ end end
 class "User" {
   constructor = function(self, name)
     self.Username = name;
-  end,
-
-  Test2 = function(self, ...)
-    return ...;
-  end,
-  
-  a = "b"
+    
+    print('class '..tostring(self));
+    print('inst'..tostring(User));
+  end
 };
 
 
-User.Test = function(self, ...)
-  return ...;
-end
-
-
-local user = new "User"("dave");
-
-
-print(user.Test("a", "b"));
-print(user.Test2("c", "d"));
-
-print(user.Username);
-
-
-
+local user1 = new "User"("dave");
 
