@@ -9,6 +9,11 @@ function pad(o, t, l)
 end
 
 
+function tid(t)
+  return tostring(t):gsub("table: ", "", 1)
+end
+
+
 function dump(o, layer)
   
   if not layer then layer = 1; end
@@ -17,17 +22,19 @@ function dump(o, layer)
   local lastt = pad("", "\t", layer-1);
   
    if type(o) == 'table' then
-      local s = '{ '
+      local s = '{';
       
       local li = 0;
       
-      for _ in pairs(o) do li = li + 1 end
+      for k, _ in pairs(o) do --[[if not string.match(k, "__") then]] li = li + 1 end -- end
+      
+      if li > 0 then
+        s = s.."\n";
+      end
       
       local i = 0;
       for k,v in pairs(o) do
-        
-        if not string.match(k, "__") then
-        
+        -- if not string.match(k, "__") then
            i = i + 1;
            
            local e = "\n";
@@ -36,22 +43,32 @@ function dump(o, layer)
              e = ","..e;
            end
           
-           if type(k) ~= 'number' then k = '"'..k..'"' end
-           s = s .. '\n'..t..k..': ' .. dump(v, layer+1) .. e
-          end
+           if type(k) ~= 'number' and string.match(k, " ") then k = '"'..k..'"' end;
+           if type(v) == "string" then v = '"'..v..'"' end;
+           s = s .. t .. k ..': ' .. dump(v, layer+1) .. e;
+        -- end
       end
-      return s .. lastt .. '}'
+      
+      if li > 0 then
+        return s .. lastt .. '}'
+      else
+        return s .. '}'
+      end
    else
       return tostring(o)
    end
 end
 
 
-function __prototostring(table)
+function __prototostring(table) return function()
+  local d = dump(table);
+  
   if table.__name then
-    return dump(table);
+    return table.__name .. " ("..tid(table)..") " .. d
   end
-end
+  
+  return dump(table);
+end end
 
 
 function __protonewindex(table, key, value)
@@ -194,7 +211,7 @@ function new(name) return function(...)
   
   self.__index = __metaindex;
   self.__newindex = __metanewindex;
-  self.__tostring = dump;
+  self.__tostring = __prototostring(self);
   
   if c.__instances then
     -- table.insert(c.__instances, self);
@@ -224,6 +241,7 @@ function Prototype.new(name) return function(p)
   
   p.__index = __protoindex;
   p.__newindex = __protonewindex;
+  p.__tostring = dump;
   
   local self = setmetatable(p, Prototype);
   self.__name = name;
@@ -270,12 +288,17 @@ end end
 class "User" {
   constructor = function(self, name)
     self.Username = name;
-    
-    print('class '..tostring(self));
-    print('inst'..tostring(User));
+    return self;
   end
 };
 
 
 local user1 = new "User"("dave");
+
+
+print(user1);
+
+
+
+
 
