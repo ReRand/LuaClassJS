@@ -1,5 +1,5 @@
 local config = {
-  coolPrintDebugClassStuff = true,
+  coolPrintDebugClassStuff = false,
   disableCoolPrint = true
 }
 
@@ -128,7 +128,7 @@ function dump(o, layer)
   			end
   			
   			
-  			print(i, li);
+  			-- print(i, li);
   			
   			if i == li then
   			  break;
