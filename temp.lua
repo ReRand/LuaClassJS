@@ -6,9 +6,6 @@ local config = {
 local _, rbx = pcall(function() return not not game end);
 
 
-
-
-
 local Prototype = {};
 Prototype.__index = Prototype;
 
@@ -395,7 +392,7 @@ function class(n)
 end
 
 
-function getclass(n);
+function getclass(n)
 	return _G.Protos[n];
 end
 
@@ -420,7 +417,7 @@ function extend(nfrom) return (function(nto) return (function(p)
 
       --[[local f = v(self);
       
-      print(f)]];
+      print(f)]]
 
       --[[v = function(...)
         return f(...);
