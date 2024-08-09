@@ -1,6 +1,10 @@
 local Prototype = {};
 Prototype.__index = Prototype;
 
+function Prototype:__tostring()
+  return "[class " .. self.__name .. "]";
+end
+
 local _, rbx = pcall(function() return not not game end);
 
 
@@ -35,18 +39,22 @@ function dump(o, layer)
 	local lastt = pad("", "\t", layer-1);
 
 	if type(o) == 'table' then
+	  
 		local s = '{';
 
 		local li = 0;
 
-		for k, _ in pairs(o) do --[[if not string.match(k, "__") then]] li = li + 1 end -- end
+		for k, _ in pairs(o) do if k ~= "__instances" then --[[if not string.match(k, "__") then]] li = li + 1 end end
 
 		if li > 0 then
 			s = s.."\n";
 		end
 
 		local i = 0;
+		
 		for k,v in pairs(o) do
+		  
+		  if k ~= "__instances" then
 			-- if not string.match(k, "__") then
 			i = i + 1;
 
@@ -67,8 +75,17 @@ function dump(o, layer)
 					v = "function() (f" .. fid(v) .. ")";
 				end
 			end
+			
 			s = s .. t .. k ..': ' .. dump(v, layer+1) .. e;
-			-- end
+			
+			
+			-- print(i, li, k);
+			
+			if i == li then
+			  break;
+			end
+			
+			end
 		end
 
 		if li > 0 then
@@ -89,7 +106,7 @@ function __prototostring(table) return function()
 			return table.__name .. " (c"..tid(table)..") " .. d
 		end
 
-		return dump(table);
+		return d;
 	end end
 
 
@@ -160,6 +177,7 @@ end
 
 function __metaindex(table, key)
 
+  print(dump(table), key);
 
 	if rawget(table.__prototype, key)  and not rawget(table, key) then
 
@@ -242,9 +260,9 @@ function Prototype.new(name) return function(p)
 		self.__index = __protoindex;
 		self.__newindex = __protonewindex;
 		
-		if not rbx then
+		--[[if not rbx then
 			self.__tostring = __prototostring(self);
-		end
+		end]]
 
 
 		if not rawget(self, "constructor") and not rawget(self.__prototype, "constructor") then
@@ -283,14 +301,22 @@ function new(name) return (function(...)
 		if not c then
 			error("Class \""..name.."\" not found in globals while trying to create a new instance.");
 		end
+		
+		local exter = {
+		  __name = c.__name;
+		  __prototype = c.__prototype;
+		};
+		
+		local ext = setmetatable(exter, c);
+		
+		function ext:__index(...)
+		  return __metaindex(self, ...);
+		end
+		function ext:__newindex(...)
+		  return __metanewindex(self, ...);
+		end
 
-		local self = setmetatable({}, c);
-
-		self.__name = c.__name;
-		self.__prototype = c.__prototype;
-
-		self.__index = __metaindex;
-		self.__newindex = __metanewindex;
+		local self = setmetatable(exter, ext);
 		
 		
 		if not rbx then
@@ -347,5 +373,22 @@ end) end) end
 -- function new(name) return __new end
 
 
+class "User" {
+  constructor = function(self, n)
+    self.Username = n;
+  end,
+  
+  test = function(self)
+    return self.Username;
+  end,
+  
+  a = "b";
+};
 
+
+local user = new "User"("jim");
+
+print(user.test())
+
+print(user.a);
 return function() return class, new end
