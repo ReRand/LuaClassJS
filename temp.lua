@@ -370,7 +370,7 @@ function new(name) return (function(...)
 
 		local self = setmetatable(exter, ext);
 
-		self.__under = ext;
+		-- self.__under = ext;
 
 
 		if c.__instances then
