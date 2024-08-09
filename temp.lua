@@ -1,5 +1,5 @@
 local config = {
-  coolPrintDebugClassStuff = false,
+  coolPrintDebugClassStuff = true,
   disableCoolPrint = true
 }
 
@@ -22,11 +22,13 @@ function Prototype:__tostring()
   return "[class " .. self.__name .. "]";
 end
 
+
 local function shallow(t)
   local nt = {};
   for k, v in pairs(t) do nt[k] = v end
   return nt;
 end
+
 
 local rawtostring = function (val)
   local mt = getmetatable(val)
@@ -36,6 +38,7 @@ local rawtostring = function (val)
   if __tostring then mt.__tostring = __tostring end
   return str
 end
+
 
 function pad(o, t, l)
 	local x = o;
@@ -47,6 +50,7 @@ end
 function tid(t)
 	return rawtostring(t):gsub("table: ", "", 1)
 end
+
 
 function fid(f)
 	return tostring(f):gsub("function: ", "", 1);
@@ -66,7 +70,7 @@ function dump(o, layer)
 	local t = pad("", "\t", layer);
 	local lastt = pad("", "\t", layer-1);
 
-	if type(o) == 'table' then
+	if type(o) == 'table' and not o.__base then
 	  
 	  o = shallow(o);
 	  
@@ -77,10 +81,15 @@ function dump(o, layer)
 		local s = '{';
 
 		local li = 0;
+		local i = 0;
+		
+		local function dothe(k)
+		  return (k ~= "__instances" and (not string.match(k, "__") or config.coolPrintDebugClassStuff))
+		end
 
 		for k, _ in pairs(o) do
 		  
-		  if k ~= "__instances" and (not string.match(k, "__") or config.coolPrintDebugClassStuff) then
+		  if dothe(k) then
 		    li = li + 1;
 		  end 
 		end
@@ -88,43 +97,42 @@ function dump(o, layer)
 		if li > 0 then
 			s = s.."\n";
 		end
-
-		local i = 0;
 		
 		for k,v in pairs(o) do
 		  
-		  if k ~= "__instances" and (not string.match(k, "__") or config.coolPrintDebugClassStuff) then
-			-- if not string.match(k, "__") then
-			i = i + 1;
-
-			local e = "\n";
-
-			if i ~= li then
-				e = ","..e;
-			end
-
-			if type(k) ~= 'number' and string.match(k, " ") then k = '"'..k..'"' end;
-			if type(v) == "string" then v = '"'..v..'"' end;
-			if type(v) == "function" then
-				local mName = fname(v);
-
-				if mName then
-					v = mName .. "() (" .. fid(v) .. ")";
-				else
-					v = "function() (" .. fid(v) .. ")";
-				end
-			end
-			
-			if v ~= o then
-			  s = s .. t .. k ..': ' .. dump(v, layer+1) .. e;
-			end
-			
-			
-			-- print(i, li, k);
-			
-			if i == li then
-			  break;
-			end
+		  if dothe(k) then
+  			-- if not string.match(k, "__") then
+  			
+  			i = i + 1;
+  
+  			local e = "\n";
+  
+  			if i ~= li then
+  				e = ","..e;
+  			end
+  
+  			if type(k) ~= 'number' and string.match(k, " ") then k = '"'..k..'"' end;
+  			if type(v) == "string" then v = '"'..v..'"' end;
+  			if type(v) == "function" then
+  				local mName = fname(v);
+  
+  				if mName then
+  					v = mName .. "() (" .. fid(v) .. ")";
+  				else
+  					v = "function() (" .. fid(v) .. ")";
+  				end
+  			end
+  			
+  			if v ~= o then
+  			  s = s .. t .. k ..': ' .. dump(v, layer+1) .. e;
+  			end
+  			
+  			
+  			print(i, li);
+  			
+  			if i == li then
+  			  break;
+  			end
 			
 			end
 		end
@@ -232,6 +240,7 @@ function __metaindex(table, key)
 		return rawget(table, key);
 	end
 end
+
 
 setmetatable(_G, {
 
@@ -449,12 +458,10 @@ extend "Base" "User" {
 }
 
 
-local base = new "Base"('jim');
 local user = new "User"('pim');
 
 
 print(user);
-print(base);
 
 
 return { class = class, new = new, extend = extend, getclass = getclass, isa = isa }
