@@ -1,12 +1,22 @@
 local Prototype = {};
 Prototype.__index = Prototype;
 
+local original_tostring = tostring
+
 function Prototype:__tostring()
   return "[class " .. self.__name .. "]";
 end
 
 local _, rbx = pcall(function() return not not game end);
 
+local rawtostring = function (val)
+  local mt = getmetatable(val)
+  local __tostring = mt and mt.__tostring
+  if __tostring then mt.__tostring = nil end
+  local str = original_tostring(val)
+  if __tostring then mt.__tostring = __tostring end
+  return str
+end
 
 function pad(o, t, l)
 	local x = o;
@@ -16,7 +26,7 @@ end
 
 
 function tid(t)
-	return tostring(t):gsub("table: ", "", 1)
+	return rawtostring(t):gsub("table: ", "", 1)
 end
 
 function fid(f)
@@ -70,13 +80,15 @@ function dump(o, layer)
 				local mName = fname(v);
 
 				if mName then
-					v = mName .. "() (f" .. fid(v) .. ")";
+					v = mName .. "() (" .. fid(v) .. ")";
 				else
-					v = "function() (f" .. fid(v) .. ")";
+					v = "function() (" .. fid(v) .. ")";
 				end
 			end
 			
-			s = s .. t .. k ..': ' .. dump(v, layer+1) .. e;
+			if v ~= o then
+			  s = s .. t .. k ..': ' .. dump(v, layer+1) .. e;
+			end
 			
 			
 			-- print(i, li, k);
@@ -99,15 +111,15 @@ function dump(o, layer)
 end
 
 
-function __prototostring(table) return function()
+function __prototostring(table)
 		local d = dump(table);
 
 		if table.__name then
-			return table.__name .. " (c"..tid(table)..") " .. d
+			return table.__name .. " ("..tid(table)..") " .. d
 		end
 
 		return d;
-	end end
+end
 
 
 function __protonewindex(table, key, value)
@@ -176,9 +188,6 @@ end
 
 
 function __metaindex(table, key)
-
-  print(dump(table), key);
-
 	if rawget(table.__prototype, key)  and not rawget(table, key) then
 
 		if type(rawget(table.__prototype, key)) == "function" then
@@ -315,13 +324,17 @@ function new(name) return (function(...)
 		function ext:__newindex(...)
 		  return __metanewindex(self, ...);
 		end
+		
+		if not rbx then
+		  
+		  function ext:__tostring()
+		    return __prototostring(self);
+		  end
+		end
 
 		local self = setmetatable(exter, ext);
 		
-		
-		if not rbx then
-			self.__tostring = __prototostring(self);
-		end
+		self.__under = ext;
 		
 
 		if c.__instances then
@@ -340,6 +353,11 @@ function new(name) return (function(...)
 
 function class(n)
 	return Prototype.new(n);
+end
+
+
+function getclass(n);
+  return _G.Protos[n];
 end
 
 
@@ -388,7 +406,9 @@ class "User" {
 
 local user = new "User"("jim");
 
-print(user.test())
+print(user.test());
+
+print(user);
 
 print(user.a);
 return function() return class, new end
