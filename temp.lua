@@ -1,7 +1,7 @@
 local Prototype = {};
 Prototype.__index = Prototype;
 
-local rbx = pcall(function() return game end);
+local _, rbx = pcall(function() return game end);
 
 
 function pad(o, t, l)
