@@ -449,13 +449,12 @@ extend "Base" "User" {
 }
 
 
-local base1 = new "Base"('jim');
-local base2 = new "Base"('sim');
-local user1 = new "User"('pim');
-local user2 = new "User"('tim');
+local base = new "Base"('jim');
+local user = new "User"('pim');
 
 
-print(user1);
+print(user);
+print(base);
 
 
 return { class = class, new = new, extend = extend, getclass = getclass, isa = isa }
