@@ -1,7 +1,22 @@
+local config = {
+  coolPrintDebugClassStuff = false,
+  disableCoolPrint = true
+}
+
+local _, rbx = pcall(function() return not not game end);
+
+
+
+
+
 local Prototype = {};
 Prototype.__index = Prototype;
 
-local original_tostring = tostring
+
+
+local original_tostring = tostring;
+
+
 
 function Prototype:__tostring()
   return "[class " .. self.__name .. "]";
@@ -12,8 +27,6 @@ local function shallow(t)
   for k, v in pairs(t) do nt[k] = v end
   return nt;
 end
-
-local _, rbx = pcall(function() return not not game end);
 
 local rawtostring = function (val)
   local mt = getmetatable(val)
@@ -48,7 +61,6 @@ end
 
 
 function dump(o, layer)
-
 	if not layer then layer = 1; end
 
 	local t = pad("", "\t", layer);
@@ -56,11 +68,22 @@ function dump(o, layer)
 
 	if type(o) == 'table' then
 	  
+	  o = shallow(o);
+	  
+	  if o.__prototype then
+	    for k, v in pairs(o.__prototype) do o[k] = v end
+	  end
+	  
 		local s = '{';
 
 		local li = 0;
 
-		for k, _ in pairs(o) do if k ~= "__instances" then --[[if not string.match(k, "__") then]] li = li + 1 end end
+		for k, _ in pairs(o) do
+		  
+		  if k ~= "__instances" and (not string.match(k, "__") or config.coolPrintDebugClassStuff) then
+		    li = li + 1;
+		  end 
+		end
 
 		if li > 0 then
 			s = s.."\n";
@@ -70,7 +93,7 @@ function dump(o, layer)
 		
 		for k,v in pairs(o) do
 		  
-		  if k ~= "__instances" then
+		  if k ~= "__instances" and (not string.match(k, "__") or config.coolPrintDebugClassStuff) then
 			-- if not string.match(k, "__") then
 			i = i + 1;
 
@@ -250,7 +273,7 @@ function Prototype.new(name) return function(p)
 		p.__index = __protoindex;
 		p.__newindex = __protonewindex;
 		
-		if not rbx then
+		if not rbx or not config.disableCoolPrint then
 			p.__tostring = dump;
 		end
 
@@ -320,6 +343,7 @@ function new(name) return (function(...)
 		local exter = {
 		  __name = c.__name;
 		  __prototype = c.__prototype;
+		  __class = c
 		};
 		
 		local ext = setmetatable(exter, c);
@@ -331,7 +355,7 @@ function new(name) return (function(...)
 		  return __metanewindex(self, ...);
 		end
 		
-		if not rbx then
+		if not rbx or not config.disableCoolPrint then
 		  
 		  function ext:__tostring()
 		    return __prototostring(self);
@@ -367,8 +391,14 @@ function getclass(n);
 end
 
 
+function isa(t, n)
+  return t.__isa(n);
+end
+
+
 function extend(nfrom) return (function(nto) return (function(p)
-  local proto = shallow(_G.Protos[nfrom].__prototype);
+  local base = _G.Protos[nfrom];
+  local proto = shallow(base.__prototype);
   
   for k, v in pairs(p) do
     proto[k] = v;
@@ -390,6 +420,8 @@ function extend(nfrom) return (function(nto) return (function(p)
       self.__prototype[k] = v;]]
     end
   end
+  
+  self.__extendee = base;
   
   return self;
 end) end) end
@@ -417,16 +449,16 @@ extend "Base" "User" {
 }
 
 
-local user1 = new "Base"('jim');
+local base1 = new "Base"('jim');
+local base2 = new "Base"('sim');
+local user1 = new "User"('pim');
 local user2 = new "User"('tim');
 
 
-print(user1.Unusedname);
-print(user2.Username);
+print(user1);
 
 
-return function() return class, new, extend end
-
+return { class = class, new = new, extend = extend, getclass = getclass, isa = isa }
 
 
 
