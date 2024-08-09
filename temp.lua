@@ -7,6 +7,12 @@ function Prototype:__tostring()
   return "[class " .. self.__name .. "]";
 end
 
+local function shallow(t)
+  local nt = {};
+  for k, v in pairs(t) do nt[k] = v end
+  return nt;
+end
+
 local _, rbx = pcall(function() return not not game end);
 
 local rawtostring = function (val)
@@ -362,7 +368,7 @@ end
 
 
 function extend(nfrom) return (function(nto) return (function(p)
-  local proto = _G.Protos[nfrom].__prototype;
+  local proto = shallow(_G.Protos[nfrom].__prototype);
   
   for k, v in pairs(p) do
     proto[k] = v;
@@ -391,9 +397,9 @@ end) end) end
 -- function new(name) return __new end
 
 
-class "User" {
+class "Base" {
   constructor = function(self, n)
-    self.Username = n;
+    self.Unusedname = n;
   end,
   
   test = function(self)
@@ -404,11 +410,24 @@ class "User" {
 };
 
 
-local user = new "User"("jim");
+extend "Base" "User" {
+  constructor = function(self, n)
+    self.Username = n;
+  end
+}
 
-print(user.test());
 
-print(user);
+local user1 = new "Base"('jim');
+local user2 = new "User"('tim');
 
-print(user.a);
-return function() return class, new end
+
+print(user1.Unusedname);
+print(user2.Username);
+
+
+return function() return class, new, extend end
+
+
+
+
+
