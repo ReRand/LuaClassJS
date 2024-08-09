@@ -202,15 +202,6 @@ setmetatable(_G, {
 _G.Protos = {};
 
 
-function class(n)
-	return Prototype.new(n);
-end
-
-
-function get(n)
-end
-
-
 function Prototype.new(name) return function(p)
 		if not p then p = {} end;
 
@@ -319,6 +310,39 @@ function new(name) return (function(...)
 			return ret;
 		end
 	end) end
+
+
+function class(n)
+	return Prototype.new(n);
+end
+
+
+function extend(nfrom) return (function(nto) return (function(p)
+  local proto = _G.Protos[nfrom].__prototype;
+  
+  for k, v in pairs(p) do
+    proto[k] = v;
+  end
+  
+  local self = Prototype.new(nto)(proto);
+  
+  for k, v in pairs(self.__prototype) do
+    if type(v) == "function" then
+      
+      --[[local f = v(self);
+      
+      print(f)]];
+      
+      --[[v = function(...)
+        return f(...);
+      end
+      
+      self.__prototype[k] = v;]]
+    end
+  end
+  
+  return self;
+end) end) end
 
 -- function new(name) return __new end
 
