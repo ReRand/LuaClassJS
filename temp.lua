@@ -114,7 +114,7 @@ function __protonewindex(table, key, value)
 
 	if type(value) == "function" and not string.match(key, "__") then
 		table.__prototype[key] = function(...)
-			return value(table, ...);
+			return value(...);
 		end
 
 	else
@@ -128,7 +128,7 @@ function __protoindex(table, key)
 
 		if type(rawget(table.__prototype, key)) == "function" then
 			return function(...) 
-				return rawget(table.__prototype, key)(...);
+				return rawget(table.__prototype, key)(table, ...);
 			end
 		else
 			return rawget(table.__prototype, key);
@@ -149,7 +149,7 @@ function __metanewindex(table, key, value)
 	
 	if type(value) == "function" and not string.match(key, "__") then
 		table[key] = function(...)
-			return value(table, ...);
+			return value(...);
 		end
 
 	else
@@ -165,7 +165,7 @@ function __metaindex(table, key)
 
 		if type(rawget(table.__prototype, key)) == "function" then
 			return function(...) 
-				return rawget(table.__prototype, key)(...);
+				return rawget(table.__prototype, key)(table, ...);
 			end
 		else
 			return rawget(table.__prototype, key);
@@ -321,5 +321,7 @@ function new(name) return (function(...)
 	end) end
 
 -- function new(name) return __new end
+
+
 
 return function() return class, new end
