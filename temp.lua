@@ -435,7 +435,9 @@ function extend(nfrom) return (function(nto) return (function(p)
 -- function new(name) return __new end
 
 
+
 local stuff = { class = class, new = new, extend = extend, getclass = getclass, isa = isa };
+
 return (function(...)
 	local args = {...};
 	for i, v in ipairs(args) do
