@@ -27,7 +27,7 @@ local function shallow(t)
 end
 
 
-local rawtostring = function (val)
+local function rawtostring(val)
 	local mt = getmetatable(val)
 	local __tostring = mt and mt.__tostring
 	if __tostring then mt.__tostring = nil end
@@ -37,31 +37,31 @@ local rawtostring = function (val)
 end
 
 
-function pad(o, t, l)
+local function pad(o, t, l)
 	local x = o;
 	x = (t):rep(l-x:len())..x;
 	return x;
 end
 
 
-function tid(t)
+local function tid(t)
 	return rawtostring(t):gsub("table: ", "", 1)
 end
 
 
-function fid(f)
+local function fid(f)
 	return tostring(f):gsub("function: ", "", 1);
 end
 
 
-function fname(m)
+local function fname(m)
 	for k, v in pairs(_G) do
 		if m == v then return k; end
 	end
 end
 
 
-function dump(o, layer)
+local function dump(o, layer)
 	if not layer then layer = 1; end
 
 	local t = pad("", "\t", layer);
@@ -145,7 +145,7 @@ function dump(o, layer)
 end
 
 
-function __prototostring(table)
+local function __prototostring(table)
 	local d = dump(table);
 
 	if table.__name then
@@ -156,7 +156,7 @@ function __prototostring(table)
 end
 
 
-function __protonewindex(table, key, value)
+local function __protonewindex(table, key, value)
 
 	if key == "constructor" then
 		rawset(table, "constructor", nil);
@@ -186,7 +186,7 @@ function __protonewindex(table, key, value)
 end
 
 
-function __protoindex(table, key)
+local function __protoindex(table, key)
 	if rawget(table.__prototype, key)  and not rawget(table, key) then
 
 		if type(rawget(table.__prototype, key)) == "function" then
@@ -204,7 +204,7 @@ function __protoindex(table, key)
 end
 
 
-function __metanewindex(table, key, value)
+local function __metanewindex(table, key, value)
 
 	if key == "constructor" then
 		rawset(table, "constructor", nil);
@@ -221,7 +221,7 @@ function __metanewindex(table, key, value)
 end
 
 
-function __metaindex(table, key)
+local function __metaindex(table, key)
 	if rawget(table.__prototype, key)  and not rawget(table, key) then
 
 		if type(rawget(table.__prototype, key)) == "function" then
