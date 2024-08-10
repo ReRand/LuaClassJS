@@ -187,14 +187,17 @@ end
 
 
 local function __protoindex(table, key)
-	if rawget(table.__prototype, key)  and not rawget(table, key) then
+	
+	local protoGot = rawget(table.__prototype, key);
+	
+	if protoGot and not rawget(table, key) then
 
-		if type(rawget(table.__prototype, key)) == "function" then
+		if type(protoGot) == "function" then
 			return function(...) 
-				return rawget(table.__prototype, key)(table, ...);
+				return protoGot(table, ...);
 			end
 		else
-			return rawget(table.__prototype, key);
+			return protoGot;
 		end
 
 
@@ -222,14 +225,17 @@ end
 
 
 local function __metaindex(table, key)
-	if rawget(table.__prototype, key)  and not rawget(table, key) then
+	
+	local protoGot = rawget(table.__prototype, key);
+	
+	if protoGot and not rawget(table, key) then
 
-		if type(rawget(table.__prototype, key)) == "function" then
+		if type(protoGot) == "function" then
 			return function(...) 
-				return rawget(table.__prototype, key)(table, ...);
+				return protoGot(table, ...);
 			end
 		else
-			return rawget(table.__prototype, key);
+			return protoGot
 		end
 
 
