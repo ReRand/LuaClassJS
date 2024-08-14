@@ -680,24 +680,6 @@ function extend(nfrom) return (function(nto) return (function(p)
 local stuff = { class = class, new = new, extend = extend, getclass = getclass, isa = isa };
 
 
-class "Base" {
-  constructor = function(self, a)
-    self.Username = "a";
-  end
-};
-
-
-extend "Base" "Test" {
-  constructor = function(self)
-    self.__super("John");
-  end
-}
-
-
-local t = new "Test"();
-print(t.Username);
-
-
 
 return (function(...)
 	local args = {...};
