@@ -681,6 +681,40 @@ local stuff = { class = class, new = new, extend = extend, getclass = getclass, 
 
 
 
+class "BaseEnemy" {
+  constructor = function(self, health)
+    self.Health = health;
+  end,
+  
+  
+  attack = function(self, damage)
+    print("attacking or something for " ..damage .. " damage");
+  end,
+  
+  
+  Stamina = 100,
+}
+
+
+extend "BaseEnemy" "Bob" {
+  constructor = function(self, health)
+    self.__super(health);
+    
+    self.Something = "idk what to put here";
+  end,
+  
+  dosomething = function(self)
+    print('idk what to put here either');
+  end
+};
+
+local bob = new "Bob"(100);
+print(bob);
+
+bob.attack(50);
+bob.dosomething();
+
+
 return (function(...)
 	local args = {...};
 	for i, v in ipairs(args) do
