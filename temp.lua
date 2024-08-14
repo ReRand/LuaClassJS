@@ -52,7 +52,7 @@ local baseprint = p.__tostring;
 function PrototypeItem.__tostring(tbl)
 	if type(tbl.__value) == "table" and not config.disableInnerCoolPrint then
 		return dump(tbl.__value);
-	elseif type(tbl.__value == "table" and config.disableInnerCoolPrint and baseprint then
+	elseif type(tbl.__value) == "table" and config.disableInnerCoolPrint and baseprint then
 			return baseprint(tbl.__value)
 	else
 		return tostring(tbl.__value);
@@ -516,7 +516,7 @@ function Prototype.new(name) return function(p)
 			if config.useObjects then
 					item = PrototypeItem.new(self, function() end);
 			else
-					item = function() end;
+					item = (function() end);
 			end
 				
 			self.__prototype.constructor = item;
@@ -542,6 +542,7 @@ function Prototype.new(name) return function(p)
 				self.__prototype.constructor = function(...)
 					return constructor(...);
 				end
+			end
 		end
 
 
@@ -599,11 +600,13 @@ function new(name) return (function(...)
 			-- table.insert(c.__instances, self);
 		end
 		
-		for k, v in pairs(self.__prototype) do
-			if type(v) == "table" then
-				rawset(v, "__parent", self);
-			end
-		end
+		if config.useObjects then
+  		for k, v in pairs(self.__prototype) do
+  			if type(v) == "table" then
+  				rawset(v, "__parent", self);
+  			end
+  		end
+  	end
 
 		local ret = self.__prototype.constructor(self, ...);
 		
@@ -642,9 +645,7 @@ function extend(nfrom) return (function(nto) return (function(p)
 
 			function self.__prototype.__super(...)
 				local constructor = rawget(base, "constructor") and rawget(base, "constructor") or rawget(base.__prototype, "constructor");
-				local f = constructor(self);
-
-				print(f);
+				return constructor(...);
 			end
 
 			for k, v in pairs(self.__prototype) do
@@ -677,6 +678,25 @@ function extend(nfrom) return (function(nto) return (function(p)
 
 
 local stuff = { class = class, new = new, extend = extend, getclass = getclass, isa = isa };
+
+
+class "Base" {
+  constructor = function(self, a)
+    self.Username = "a";
+  end
+};
+
+
+extend "Base" "Test" {
+  constructor = function(self)
+    self.__super("John");
+  end
+}
+
+
+local t = new "Test"();
+print(t.Username);
+
 
 
 return (function(...)
