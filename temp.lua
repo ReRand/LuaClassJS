@@ -328,13 +328,19 @@ local function __protonewindex(tbl, key, value)
 				return value(...);
 			end)
 		else
-				tbl.__prototype[key] = PrototypeItem.new(tbl, function(...)
+			tbl.__prototype[key] = function(...)
 				return value(...);
-			end)
+			end
 		end
 
 	elseif not string.match(key, "__") then
-		local item = PrototypeItem.new(tbl, value);
+		local item;
+		if config.useObjects then
+			item = PrototypeItem.new(tbl, value);
+		else
+			item = value;
+		end
+			
 		return rawset(tbl, key, item);
 	
 	else
@@ -369,12 +375,25 @@ local function __metanewindex(tbl, key, value)
 	end
 
 	if type(value) == "function" and not string.match(key, "__") then
-		tbl[key] = PrototypeItem.new(tbl, function(...)
-			return value(...);
-		end)
+		if config.useObjects then
+			tbl[key] = PrototypeItem.new(tbl, function(...)
+				return value(...);
+			end)
+		else
+			tbl[key] = function(...)
+				return value(...);
+			end
+		end
 
 	elseif not string.match(key, "__") then
-		local item = PrototypeItem.new(tbl, value);
+
+		local item;
+
+		if config.useObjects then
+			item = PrototypeItem.new(tbl, value);
+		else
+			item = value;
+		end
 		return rawset(tbl, key, item);
 
 	else
@@ -446,7 +465,7 @@ function Prototype.new(name) return function(p)
 		local proto = {};
 		
 		for k, v in pairs(p) do
-			proto[k] = PrototypeItem.new(nil, v);
+			proto[k] = config.useObjects and PrototypeItem.new(nil, v) or v;
 			p[k] = nil;
 		end
 
@@ -461,10 +480,12 @@ function Prototype.new(name) return function(p)
 		self.__name = name;
 		self.__instances = {};
 		self.__prototype = proto;
-		
-		for k, v in pairs(proto) do
-			if type(v) == "table" then
-				rawset(v, "__parent", self);
+
+		if config.useObjects then
+			for k, v in pairs(proto) do
+				if type(v) == "table" then
+					rawset(v, "__parent", self);
+				end
 			end
 		end
 
