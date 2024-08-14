@@ -511,7 +511,15 @@ function Prototype.new(name) return function(p)
 
 
 		if not rawget(self, "constructor") and not rawget(self.__prototype, "constructor") then
-			self.__prototype.constructor = PrototypeItem.new(self, function() end);
+			local item
+
+			if config.useObjects then
+					item = PrototypeItem.new(self, function() end);
+			else
+					item = function() end;
+			end
+				
+			self.__prototype.constructor = item;
 
 
 		elseif rawget(self, "constructor") or rawget(self.__prototype, "constructor") then
@@ -526,9 +534,14 @@ function Prototype.new(name) return function(p)
 			rawset(self, "constructor", nil);
 			rawset(self.__prototype, "constructor", nil);
 
-			self.__prototype.constructor = PrototypeItem.new(self, function(...)
-				return constructor(...);
-			end)
+			if config.useObjects then
+				self.__prototype.constructor = PrototypeItem.new(self, function(...)
+					return constructor(...);
+				end)
+			else
+				self.__prototype.constructor = function(...)
+					return constructor(...);
+				end
 		end
 
 
