@@ -1,6 +1,8 @@
 local config = {
 	coolPrintDebugClassStuff = false,
-	disableCoolPrint = true
+	disableInnerCoolPrint = false,
+	disableCoolPrint = true,
+	useObjects = false
 }
 
 local _, rbx = pcall(function() return not not game end);
@@ -43,15 +45,19 @@ function PrototypeItem.new(parent, value, t)
 	return setmetatable(t, PrototypeItem);
 end
 
+local p = {};
+local baseprint = p.__tostring;
 
 
---[[function PrototypeItem.__tostring(tbl)
-	if type(tbl.__value) ~= "table" then
-		return 
+function PrototypeItem.__tostring(tbl)
+	if type(tbl.__value) == "table" and not config.disableInnerCoolPrint then
+		return dump(tbl.__value);
+	elseif type(tbl.__value == "table" and config.disableInnerCoolPrint and baseprint then
+			return baseprint(tbl.__value)
 	else
 		return tostring(tbl.__value);
 	end
-end]]
+end
 
 
 function PrototypeItem.__len(tbl)
@@ -306,16 +312,26 @@ local function __protonewindex(tbl, key, value)
 		end
 
 		_G.Protos[value] = tbl;
-		
-		
-		return rawset(tbl, "__name", PrototypeItem.new(tbl, value));
+
+		if config.useObjects then
+			return rawset(tbl, "__name", PrototypeItem.new(tbl, value));
+		else
+			return rawset(tbl, "__name", value);
+		end
 	end
 
 
 	if type(value) == "function" and not string.match(key, "__") then
-		tbl.__prototype[key] = PrototypeItem.new(tbl, function(...)
-			return value(...);
-		end)
+
+		if config.useObjects then
+			tbl.__prototype[key] = PrototypeItem.new(tbl, function(...)
+				return value(...);
+			end)
+		else
+				tbl.__prototype[key] = PrototypeItem.new(tbl, function(...)
+				return value(...);
+			end)
+		end
 
 	elseif not string.match(key, "__") then
 		local item = PrototypeItem.new(tbl, value);
@@ -589,6 +605,13 @@ function extend(nfrom) return (function(nto) return (function(p)
 			end
 
 			local self = Prototype.new(nto)(proto);
+
+			function self.__prototype.__super(...)
+				local constructor = rawget(base, "constructor") and rawget(base, "constructor") or rawget(base.__prototype, "constructor");
+				local f = constructor(self);
+
+				print(f);
+			end
 
 			for k, v in pairs(self.__prototype) do
 				
