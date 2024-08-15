@@ -10,6 +10,7 @@ local payload = {
 	rbx = rbx
 }
 
+
 payload.getclass = require("lib/class.lua")(payload);
 
 payload.class = require("lib/class.lua")(payload);
