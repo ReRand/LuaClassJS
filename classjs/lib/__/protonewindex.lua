@@ -1,6 +1,6 @@
 return function(payload)
 
-  return function __protonewindex(tbl, key, value)
+  function __protonewindex(tbl, key, value)
   
   	local output = nil;
   
@@ -51,5 +51,7 @@ return function(payload)
   		return rawset(tbl, key, value);
   	end
   end
+
+  return __protonewindex;
 
 end
