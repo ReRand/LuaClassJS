@@ -1,14 +1,25 @@
 local _, rbx = pcall(function() return not not game end);
-
-local Prototype = require("lib/Prototype/init.lua");
 local Config = require('Config.lua');
+
+
 _G.Protos = {};
 
-local class = require("lib/class.lua")(Prototype);
-local new = require("lib/new.lua");
+local payload = {
+	Protos = _G.Protos,
+	Config = Config,
+	rbx = rbx
+}
 
+payload.getclass = require("lib/class.lua")(payload);
 
-local stuff = { class = class, new = new, extend = extend, getclass = getclass, isa = isa };
+payload.class = require("lib/class.lua")(payload);
+payload.new = require("lib/new.lua");
+
+payload.isa = require("lib/isa.lua")(payload);
+payload.extend = require("lib/extend.lua")(payload);
+
+payload.Prototype = require("lib/Prototype/init.lua")(payload);
+payload.PrototypeItem = require("lib/PrototypeItem/init.lua")(payload);
 
 
 return (function(...)
