@@ -13,6 +13,7 @@ return function(payload)
     
     -- internal metatable functions
     __tostring = rbx and script.__.tostring or "__/tostring.lua", 			     -- controls what the PrototypeItem outputs
+    __len = rbx and script.__.len or "__/len.lua",
     
   }
 
