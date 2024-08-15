@@ -33,7 +33,7 @@ return function(payload)
 		if not payload.rbx or not payload.Config.disableCoolPrint then
 
 			function ext:__tostring()
-				return payload.__prototostring(self);
+				return payload.__metatostring(self);
 			end
 		end
 
