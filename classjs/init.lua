@@ -1,5 +1,5 @@
 local _, rbx = pcall(function() return not not game end);
-local Config = require('Config.lua');
+local Config = rbx and require(script.Config) or require('Config.lua');
 
 
 _G.Protos = {};
