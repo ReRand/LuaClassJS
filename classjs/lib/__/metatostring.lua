@@ -1,6 +1,6 @@
 return function(payload) 
   
-  function __prototostring(tbl)
+  function __metatostring(tbl)
   	local d = payload.dump(tbl);
   
   	if tbl.__name then
@@ -10,6 +10,6 @@ return function(payload)
   	return d;
   end
 
-  return __prototostring;
+  return __metatostring;
 
 end
