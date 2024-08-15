@@ -1,7 +1,9 @@
-return function(Prototype)
+return function(payload)
   
-  function Class(n)
-    return Prototype.new(n);
+  function class(n)
+    return payload.Prototype.new(n);
   end
+
+  return class;
   
 end
