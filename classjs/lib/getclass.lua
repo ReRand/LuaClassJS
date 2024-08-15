@@ -1,7 +1,9 @@
 return function(payload)
 
-  return function(n)
+  function getclass(n)
   	return payload.Protos[n];
   end
+
+  return getclass;
 
 end
