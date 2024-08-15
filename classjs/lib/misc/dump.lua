@@ -50,12 +50,12 @@ return function(p)
   				if type(k) ~= 'number' and string.match(k, " ") then k = '"'..k..'"' end;
   				if type(v) == "string" then v = '"'..v..'"' end;
   				if type(v) == "function" then
-  					local mName = fname(v);
+  					local mName = p.fname(v);
   
   					if mName then
-  						v = mName .. "() (" .. fid(v) .. ")";
+  						v = mName .. "() (" .. p.fid(v) .. ")";
   					else
-  						v = "function() (" .. fid(v) .. ")";
+  						v = "function() (" .. p.fid(v) .. ")";
   					end
   				end
   
@@ -82,4 +82,6 @@ return function(p)
   		return tostring(o)
   	end
   end
+
+  return dump;
 end
