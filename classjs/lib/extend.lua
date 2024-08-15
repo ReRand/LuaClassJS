@@ -38,6 +38,8 @@ return function(payload)
 			self.__extendee = base;
 
 			return self;
-		end) end) end
+	end) end) end
+
+	return extend;
   
 end
