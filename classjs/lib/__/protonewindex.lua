@@ -1,6 +1,6 @@
 return function(payload)
 
-  function __protonewindex(tbl, key, value)
+  return function __protonewindex(tbl, key, value)
   
   	local output = nil;
   
