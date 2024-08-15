@@ -1,6 +1,6 @@
 return function(payload) 
   
-  return function __prototostring(tbl)
+  function __prototostring(tbl)
   	local d = payload.dump(tbl);
   
   	if tbl.__name then
@@ -9,5 +9,7 @@ return function(payload)
   
   	return d;
   end
+
+  return __prototostring;
 
 end
