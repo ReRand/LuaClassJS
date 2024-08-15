@@ -18,6 +18,10 @@ return function(payload)
     
   }
 
+  for k, v in pairs(typePayload) do
+  	require(v)(payload, typePayload, PrototypeItem);
+  end
+
   return PrototypeItem;
   
 end
