@@ -1,6 +1,6 @@
 return function(payload)
 
-    return function new(name) return (function(...)
+    function new(name) return (function(...)
 
 		local c = payload.Protos[name];
 
@@ -63,5 +63,8 @@ return function(payload)
 			return ret;
 		end
 	end) end
+
+
+	return new;
     
 end
