@@ -1,2 +1,2 @@
 # LuaClassJS
-a recreation of JavaScript class and prototype systems
+a recreation of JavaScript class and prototype syntax
