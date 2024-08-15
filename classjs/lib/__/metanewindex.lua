@@ -1,6 +1,6 @@
 return function(payload)
   
-  return function __metanewindex(tbl, key, value)
+  function __metanewindex(tbl, key, value)
   	if key == "constructor" then
   		rawset(tbl, "constructor", nil);
   	end
@@ -31,5 +31,7 @@ return function(payload)
   		return rawset(tbl, key, value);
   	end
   end
+
+  return __metanewindex;
   
 end
