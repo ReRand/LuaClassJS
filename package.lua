@@ -28,5 +28,5 @@ return {
 	tags = {'js', 'javascript', 'class', 'oop'},
 	license = 'MIT',
 	author = 'shysolocup',
-	files = {'**.lua'},
+	files = {'classjs/**.lua'},
 }
