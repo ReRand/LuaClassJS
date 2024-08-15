@@ -26,6 +26,10 @@ local payload = {
 }
 
 
+local p = {};
+payload.baseprint = p.__tostring;
+
+
 local libs = {
 	
 	-- built-in functions
