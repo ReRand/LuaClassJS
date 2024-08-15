@@ -25,7 +25,7 @@ payload.PrototypeItem = require("lib/PrototypeItem/init.lua")(payload);
 return (function(...)
 	local args = {...};
 	for i, v in ipairs(args) do
-		args[i] = stuff[v];
+		args[i] = payload[v];
 	end
 	return table.unpack(args);
 end)
