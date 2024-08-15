@@ -1,3 +1,11 @@
+--[[
+LuaClassJS == https://github.com/ReRand/LuaClassJs
+created by shysolocup
+
+]]
+
+
+
 local _, rbx = pcall(function() return not not game end);
 local Config = rbx and require(script.Config) or require('Config.lua');
 
