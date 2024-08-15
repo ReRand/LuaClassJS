@@ -1,4 +1,5 @@
 --[[
+
 LuaClassJS == https://github.com/ReRand/LuaClassJs
 created by shysolocup
 
