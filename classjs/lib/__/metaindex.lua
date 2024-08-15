@@ -1,6 +1,6 @@
 return function(payload)
   
-  return function __metaindex(tbl, key)
+  function __metaindex(tbl, key)
   	local protoGot = rawget(tbl.__prototype, key);
   	local normalGot = rawget(tbl, key);
   	local self = rawget(tbl, "__parent") or tbl;
@@ -27,5 +27,7 @@ return function(payload)
   		end
   	end
   end
+
+  return __metaindex;
   
 end
