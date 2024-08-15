@@ -9,7 +9,10 @@ return function(payload)
 
     -- methods
     new = rbx and script.methods.new or "methods/new.lua", 			             -- creates a new PrototypeItem
-    __tostring = rbx and script.__.tostring or "__/tostring.lua", 			     -- creates a new PrototypeItem
+
+    
+    -- internal metatable functions
+    __tostring = rbx and script.__.tostring or "__/tostring.lua", 			     -- controls what the PrototypeItem outputs
     
   }
 
