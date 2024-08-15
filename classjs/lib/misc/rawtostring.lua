@@ -2,7 +2,7 @@ local original_tostring = tostring;
 
 return function(payload)
   
-  return function rawtostring(val)
+  function rawtostring(val)
   	local mt = getmetatable(val)
   	local __tostring = mt and mt.__tostring
   	if __tostring then mt.__tostring = nil end
@@ -10,5 +10,7 @@ return function(payload)
   	if __tostring then mt.__tostring = __tostring end
   	return str
   end
+
+  return rawtostring;
 
 end
