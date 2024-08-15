@@ -1,0 +1,15 @@
+{
+	"name": "classjs",
+	
+	"tree": {
+		"$className": "DataModel",
+
+    "Workspace": {
+			"$className": "Workspace",
+			
+			"classjs": {
+        "$path": "classjs"
+      }
+    }
+	}
+}
