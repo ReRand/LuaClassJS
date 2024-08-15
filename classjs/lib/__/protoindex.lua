@@ -1,6 +1,6 @@
 return function(payload)
 
-  return function __protoindex(tbl, key)
+  function __protoindex(tbl, key)
   	local protoGot = rawget(tbl.__prototype, key);
   	
   	if protoGot and not rawget(tbl, key) then
@@ -17,5 +17,7 @@ return function(payload)
   		return rawget(tbl, key);
   	end
   end
+
+  return __protoindex;
 
 end
