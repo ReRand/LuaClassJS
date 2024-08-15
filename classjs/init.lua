@@ -4,6 +4,7 @@ local Config = rbx and require(script.Config) or require('Config.lua');
 
 _G.Protos = {};
 
+
 local payload = {
 	Protos = _G.Protos,
 	Config = Config,
