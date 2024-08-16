@@ -5,6 +5,8 @@ includes:
 - class, new, and extend keywords
 - isa and getclass built-in functions
 
+<br>
+
 ```lua
 local class, new, extend = require("classjs")("class", "new", "extend");
 
