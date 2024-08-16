@@ -53,7 +53,7 @@ local libs = {
 	-- internal metatable functions
 	__metaindex = rbx and script.lib.__.metaindex or "lib/__/metaindex.lua",	     -- used in instances to get properties
 	__metanewindex = rbx and script.lib.__.metanewindex or "lib/__/metanewindex.lua",    -- used in instances to make properties
-	__metatostring = rbx and script.lib.__metatostring or "lib/__/metatostring.lua",     -- used in instances for their cool print stuff
+	__metatostring = rbx and script.lib.__.metatostring or "lib/__/metatostring.lua",     -- used in instances for their cool print stuff
 	__protoindex = rbx and script.lib.__.protoindex or "lib/__/protoindex.lua",	     -- used in classes to get properties
 	__protonewindex = rbx and script.lib.__.protonewindex or "lib/__/protonewindex.lua", -- used in classes to make properties
 
