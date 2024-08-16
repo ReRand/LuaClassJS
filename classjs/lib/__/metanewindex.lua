@@ -7,13 +7,13 @@ return function(payload)
   
   	if type(value) == "function" and not string.match(key, "__") then
   		if payload.Config.useObjects then
-  			tbl[key] = payload.PrototypeItem.new(tbl, function(...)
+  			rawset(tbl, key, payload.PrototypeItem.new(tbl, function(...)
+  				return value(...);
+  			end))
+  		else
+  			rawset(tbl, key, function(...)
   				return value(...);
   			end)
-  		else
-  			tbl[key] = function(...)
-  				return value(...);
-  			end
   		end
   
   	elseif not string.match(key, "__") then
