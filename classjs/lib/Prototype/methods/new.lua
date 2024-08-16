@@ -8,14 +8,14 @@ return function(pl, payload, Prototype)
 		local proto = {};
 		
 		for k, v in pairs(p) do
-			proto[k] = pl.Config.useObjects and PrototypeItem.new(nil, v) or v;
+			proto[k] = pl.Config.useObjects and pl.PrototypeItem.new(nil, v) or v;
 			p[k] = nil;
 		end
 
-		p.__index = __protoindex;
-		p.__newindex = __protonewindex;
+		p.__index = pl.__protoindex;
+		p.__newindex = pl.__protonewindex;
 
-		if not rbx or not pl.Config.disableCoolPrint then
+		if not pl.rbx or not pl.Config.disableCoolPrint then
 			p.__tostring = pl.dump;
 		end
 
@@ -24,7 +24,7 @@ return function(pl, payload, Prototype)
 		self.__instances = {};
 		self.__prototype = proto;
 
-		if config.useObjects then
+		if pl.Config.useObjects then
 			for k, v in pairs(proto) do
 				if type(v) == "table" then
 					rawset(v, "__parent", self);
@@ -56,8 +56,8 @@ return function(pl, payload, Prototype)
 		if not rawget(self, "constructor") and not rawget(self.__prototype, "constructor") then
 			local item
 
-			if config.useObjects then
-					item = PrototypeItem.new(self, function() end);
+			if pl.Config.useObjects then
+					item = pl.PrototypeItem.new(self, function() end);
 			else
 					item = (function() end);
 			end
@@ -77,7 +77,7 @@ return function(pl, payload, Prototype)
 			rawset(self, "constructor", nil);
 			rawset(self.__prototype, "constructor", nil);
 
-			if config.useObjects then
+			if pl.Config.useObjects then
 				self.__prototype.constructor = pl.PrototypeItem.new(self, function(...)
 					return constructor(...);
 				end)
