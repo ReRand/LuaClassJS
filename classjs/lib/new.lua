@@ -21,19 +21,19 @@ return function(payload)
 		
 
 
-		function ext:__index(...)
-			return payload.__metaindex(self, ...);
+		function ext.__index(tbl, ...)
+			return payload.__metaindex(tbl, ...);
 		end
 
-		function ext:__newindex(...)
-			return payload.__metanewindex(self, ...);
+		function ext.__newindex(tbl, ...)
+			return payload.__metanewindex(tbl, ...);
 		end
 
 
 		if not payload.rbx or not payload.Config.disableCoolPrint then
 
-			function ext:__tostring()
-				return payload.__metatostring(self);
+			function ext.__tostring(tbl)
+				return payload.__metatostring(tbl);
 			end
 		end
 
