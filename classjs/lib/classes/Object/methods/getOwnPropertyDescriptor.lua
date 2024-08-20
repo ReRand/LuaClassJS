@@ -1,6 +1,6 @@
 return function(pl, payload, Object)
 
-  function Object.getOwnPropertyDescriptors(tbl, name)
+  function Object.getOwnPropertyDescriptor(tbl, name)
     local desc = nil;
 
     for k, v in pairs(tbl) do  
