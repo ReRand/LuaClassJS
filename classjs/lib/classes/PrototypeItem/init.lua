@@ -8,15 +8,31 @@ return function(payload)
   local typePayload = {
 
     -- methods
-    new = rbx and script.methods.new or "methods/new.lua", 			             -- creates a new PrototypeItem
+    new = "methods/new.lua", 			             -- creates a new PrototypeItem
 
     
     -- internal metatable functions
-    __tostring = rbx and script.__.tostring or "__/tostring.lua", 			     -- controls what the PrototypeItem outputs
-    __len = rbx and script.__.len or "__/len.lua",                           -- controls # (table length) outputs 
-    __operators = rbx and script.__.operators or "__/operators.lua",         -- adds all operators
+    __tostring = "__/tostring.lua", 			     -- controls what the PrototypeItem outputs
+    __len = "__/len.lua",                           -- controls # (table length) outputs 
+    __operators = "__/operators.lua",         -- adds all operators
     
   }
+
+  
+if rbx then
+	for k, v in pairs(libs) do
+		v = v:gsub(".lua", "");
+		
+		local dir = split(v, "/");
+		local path = script;
+
+		for i, d in ipairs(dir) do
+			path = path:FindFirstChild(d);
+		end
+
+		libs[k] = path;
+	end
+end
 
   for k, v in pairs(typePayload) do
   	require(v)(payload, typePayload, PrototypeItem);
