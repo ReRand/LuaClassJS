@@ -21,7 +21,7 @@ return function(payload)
   
 if rbx then
 	for k, v in pairs(libs) do
-		v = v:gsub(".lua", "");
+		v = v:gsub("init.lua", ""):gsub(".lua", "");
 		
 		local dir = split(v, "/");
 		local path = script;
