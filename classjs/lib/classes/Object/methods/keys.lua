@@ -1,11 +1,11 @@
 return function(pl, payload, Object)
 
   
-  function Object.Values(tbl)
+  function Object.keys(tbl)
     local t = {};
 
-    for _, v in pairs(tbl) do
-      table.insert(t, v);
+    for k in pairs(tbl) do
+      table.insert(t, k);
     end
 
     return t;  
