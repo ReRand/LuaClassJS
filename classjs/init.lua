@@ -3,6 +3,57 @@
 LuaClassJS == https://github.com/ReRand/LuaClassJs
 created by shysolocup
 
+--=={ Libs }==--
+
+- class( name<String> ) Data<Table> : Prototype
+> creates a new class
+> ex: class "Example" { ... }
+
+
+- extend( from<String>, to<String> ) Data<Table> : Prototype
+> creates a class from another one
+> ex: extend "Base" "Example" { ... }
+
+
+- new( Name<String> ) : ClassInstance
+> creates a new instance of a class
+> ex: new "Example"(...);
+
+
+- isa( A<ClassInstance>, B<String> ) : Boolean
+> checks if a class instance matches with a given Prototype
+> there's also one called __isa() in class instances
+> ex: isa(ex, "Example")
+> ex: ex.__isa("Example");
+
+
+- getclass( Name<String> ) : Prototype
+> gets a class Prototype
+> ex: getclass("Example");
+
+
+- Prototype( Name<String> ) Data<Table> : Metatable
+> returns a new class
+>
+> -=={ Methods }==-
+>> Prototype.new( ... ): ClassInstance
+>> creates a new Prototype
+
+
+- ClassInstance() : Metatable
+> type for class instances, extends off of the class's Prototype
+>
+> -=={ Methods }==-
+>> ClassInstance.__isa( Name<String> ): Boolean
+>> checks if the class instance matches a given prototype
+>> ex: ex.__isa("Example");
+>
+>
+>> ClassInstance.__super( ... ): Any
+>> runs the constructor of the class extended from (only available using extend)
+>> ex: ex.__super("a", "b");
+
+
 ]]
 
 
