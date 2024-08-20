@@ -30,38 +30,66 @@ local p = {};
 payload.baseprint = p.__tostring;
 
 
+local function split(inputstr, sep)
+  if sep == nil then
+    sep = "%s"
+  end
+  local t = {}
+  for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
+    table.insert(t, str)
+  end
+  return t
+end
+
+
 local libs = {
 	
 	-- built-in functions
-	getclass = rbx and script.lib.methods.getclass or "lib/methods/getclass.lua", 			     -- gets class tables
-	class = rbx and script.lib.methods.class or "lib/methods/class.lua", 				     -- creates a new class
-	new = rbx and script.lib.methods.new or "lib/methods/new.lua", 					     -- initiates a created class
-	isa = rbx and script.lib.methods.isa or "lib/methods/isa.lua", 					     -- checks if an instance is a given class
-	extend = rbx and script.lib.methods.extend or "lib/methods/extend.lua", 			     -- extends properties and methods onto into a new class
+	getclass = "lib/methods/getclass.lua", 			     -- gets class tables
+	class = "lib/methods/class.lua", 				     -- creates a new class
+	new = "lib/methods/new.lua", 					     -- initiates a created class
+	isa = "lib/methods/isa.lua", 					     -- checks if an instance is a given class
+	extend = "lib/methods/extend.lua", 			     -- extends properties and methods onto into a new class
 
 	
 	-- misc functions
-	dump = rbx and script.lib.misc.dump or "lib/misc/dump.lua", 			     -- dumps tables
-	fid = rbx and script.lib.misc.fid or "lib/misc/fid.lua", 			     -- gets function ids
-	fname = rbx and script.lib.misc.fname or "lib/misc/fname.lua", 			     -- gets function names
-	pad = rbx and script.lib.misc.pad or "lib/misc/pad.lua", 			     -- pads strings
-	rawtostring = rbx and script.lib.misc.rawtostring or "lib/misc/rawtostring.lua",     -- gets a default tostring 
-	shallow = rbx and script.lib.misc.shallow or "lib/misc/shallow.lua", 		     -- makes shallow copies of tables
-	tid = rbx and script.lib.misc.tid or "lib/misc/tid.lua", 			     -- gets table ids
+	dump = "lib/misc/dump.lua", 			     -- dumps tables
+	fid = "lib/misc/fid.lua", 			     -- gets function ids
+	fname = "lib/misc/fname.lua", 			     -- gets function names
+	pad = "lib/misc/pad.lua", 			     -- pads strings
+	rawtostring = "lib/misc/rawtostring.lua",     -- gets a default tostring 
+	shallow = "lib/misc/shallow.lua", 		     -- makes shallow copies of tables
+	tid = "lib/misc/tid.lua", 			     -- gets table ids
 
 
 	-- internal metatable functions
-	__metaindex = rbx and script.lib.__.metaindex or "lib/__/metaindex.lua",	     -- used in instances to get properties
-	__metanewindex = rbx and script.lib.__.metanewindex or "lib/__/metanewindex.lua",    -- used in instances to make properties
-	__metatostring = rbx and script.lib.__.metatostring or "lib/__/metatostring.lua",     -- used in instances for their cool print stuff
-	__protoindex = rbx and script.lib.__.protoindex or "lib/__/protoindex.lua",	     -- used in classes to get properties
-	__protonewindex = rbx and script.lib.__.protonewindex or "lib/__/protonewindex.lua", -- used in classes to make properties
+	__metaindex = "lib/__/metaindex.lua",	     -- used in instances to get properties
+	__metanewindex = "lib/__/metanewindex.lua",    -- used in instances to make properties
+	__metatostring = "lib/__/metatostring.lua",     -- used in instances for their cool print stuff
+	__protoindex = "lib/__/protoindex.lua",	     -- used in classes to get properties
+	__protonewindex = "lib/__/protonewindex.lua", -- used in classes to make properties
 
 
 	-- types
-	Prototype = rbx and script.lib.classes.Prototype or "lib/Prototype/init.lua", 		     -- the class type
-	PrototypeItem = rbx and script.lib.classes.PrototypeItem or "lib/PrototypeItem/init.lua"     -- class properties/items
+	Prototype = "lib/Prototype/init.lua", 		     -- the class type
+	PrototypeItem = "lib/PrototypeItem/init.lua"     -- class properties/items
 }
+
+
+if rbx then
+	for k, v in pairs(libs) do
+		v = v:gsub(".lua", "");
+		
+		local dir = split(v, "/");
+		local path = script;
+
+		for i, d in ipairs(dir) do
+			path = path:FindFirstChild(d);
+		end
+
+		libs[k] = path;
+	end
+end
 
 
 for k, v in pairs(libs) do
