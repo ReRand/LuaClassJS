@@ -3,6 +3,7 @@ a recreation of JavaScript classes and prototypes in lua and luau
 
 includes: 
 - class, new, and extend keywords
+- class checking and super functions
 - isa and getclass built-in functions
 
 <br>
