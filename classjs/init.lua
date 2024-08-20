@@ -33,11 +33,11 @@ payload.baseprint = p.__tostring;
 local libs = {
 	
 	-- built-in functions
-	getclass = rbx and script.lib.getclass or "lib/getclass.lua", 			     -- gets class tables
-	class = rbx and script.lib.class or "lib/class.lua", 				     -- creates a new class
-	new = rbx and script.lib.new or "lib/new.lua", 					     -- initiates a created class
-	isa = rbx and script.lib.isa or "lib/isa.lua", 					     -- checks if an instance is a given class
-	extend = rbx and script.lib.extend or "lib/extend.lua", 			     -- extends properties and methods onto into a new class
+	getclass = rbx and script.lib.methods.getclass or "lib/methods/getclass.lua", 			     -- gets class tables
+	class = rbx and script.lib.methods.class or "lib/methods/class.lua", 				     -- creates a new class
+	new = rbx and script.lib.methods.new or "lib/methods/new.lua", 					     -- initiates a created class
+	isa = rbx and script.lib.methods.isa or "lib/methods/isa.lua", 					     -- checks if an instance is a given class
+	extend = rbx and script.lib.methods.extend or "lib/methods/extend.lua", 			     -- extends properties and methods onto into a new class
 
 	
 	-- misc functions
@@ -59,8 +59,8 @@ local libs = {
 
 
 	-- types
-	Prototype = rbx and script.lib.Prototype or "lib/Prototype/init.lua", 		     -- the class type
-	PrototypeItem = rbx and script.lib.PrototypeItem or "lib/PrototypeItem/init.lua"     -- class properties/items
+	Prototype = rbx and script.lib.classes.Prototype or "lib/Prototype/init.lua", 		     -- the class type
+	PrototypeItem = rbx and script.lib.classes.PrototypeItem or "lib/PrototypeItem/init.lua"     -- class properties/items
 }
 
 
