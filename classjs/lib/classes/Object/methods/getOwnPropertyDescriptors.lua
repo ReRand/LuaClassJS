@@ -4,7 +4,7 @@ return function(pl, payload, Object)
     local desc = {};
 
     for _, v in pairs(tbl) do  
-      if pcall(function() return v.__value, v.__parent end) do
+      if pcall(function() return v.__value, v.__parent end) then
         
         table.insert(desc, {
           __value = v.__value,
