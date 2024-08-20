@@ -122,8 +122,9 @@ local libs = {
 
 
 	-- types
-	Prototype = "lib/Prototype/init.lua", 		     -- the class type
-	PrototypeItem = "lib/PrototypeItem/init.lua"     -- class properties/items
+	Prototype = "lib/classes/Prototype/init.lua", 		     -- the class type
+	PrototypeItem = "lib/classes/PrototypeItem/init.lua",     -- class properties/items
+	Object = "lib/classes/Object", 				  -- type mostly for getting and setting descriptors
 }
 
 
