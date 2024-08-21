@@ -36,12 +36,11 @@
   
 </details>
 
-<br>
 
 
 <details>
 
-<summary> [🛈](https://github.com/ReRand/LuaClassJs/wiki/Prototype) Prototype </b>  </summary>
+<summary> <b> <a href="https://github.com/ReRand/LuaClassJs/wiki/Prototype">🛈</a> Prototype </b> </summary>
 
 > <table> <tr> <td> 
 >
@@ -62,8 +61,7 @@
 > </tr> </td> 
 
 > </tr> </td> </table>
-
-
+>
 > <table> <tr> <td> 
 >
 > <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/Prototype.__name) __name </b>
@@ -86,36 +84,100 @@
   
 </details>
 
-<br>
+
+<details>
+
+<summary> <b> <a href="https://github.com/ReRand/LuaClassJs/wiki/PrototypeItem">🛈</a> PrototypeItem </b> </summary>
 
 > <table> <tr> <td> 
 >
-> <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/PrototypeItem) PrototypeItem </b> 
+> <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/PrototypeItem.new()) new() </b>
 >
+> </tr> </td> 
+
 > </tr> </td> </table>
 >
->> - <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/PrototypeItem.new()) new() </b>
+> <table> <tr> <td> 
 >
->> - <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/PrototypeItem.__value) __value </b>
->> - <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/PrototypeItem.__parent) __parent </b>
->> - <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/PrototypeItem.__writable) __writable </b>
->> - <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/PrototypeItem.__configurable) __configurable </b>
->> - <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/PrototypeItem.__enumerable) __enumerable </b>
-> <br>
+> <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/PrototypeItem.__value) __value </b>
+>
+> </tr> </td> 
 
-<br>
+> <tr> <td> 
+>
+> <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/PrototypeItem.__parent) __parent </b>
+>
+> </tr> </td>
+
+> <tr> <td> 
+>
+> <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/PrototypeItem.__writable) __writable </b>
+>
+> </tr> </td> 
+
+> <tr> <td> 
+>
+> <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/PrototypeItem.__configurable) __configurable </b>
+>
+> </tr> </td> 
+
+> <tr> <td> 
+>
+> <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/PrototypeItem.__enumerable) __enumerable </b>
+>
+> </tr> </td> 
+
+> </tr> </td> </table>
+  
+</details>
+
+
+<details>
+
+<summary> <b> <a href="https://github.com/ReRand/LuaClassJs/wiki/Object">🛈</a> Object </b> </summary>
 
 > <table> <tr> <td> 
 >
-> <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/Object) Object </b> 
+> <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/Object.defineProperties()) defineProperties() </b>
 >
+> </tr> </td> 
+
+> <tr> <td> 
+>
+> <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/Object.defineProperty()) defineProperty() </b>
+>
+> </tr> </td> 
+
+> <tr> <td> 
+>
+> <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/Object.entries()) entries() </b>
+>
+> </tr> </td> 
+
+> <tr> <td> 
+>
+> <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/Object.getOwnPropertyDescriptor()) getOwnPropertyDescriptor() </b>
+>
+> </tr> </td> 
+
+> <tr> <td> 
+>
+> <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/Object.getOwnPropertyDescriptors()) getOwnPropertyDescriptors() </b>
+>
+> </tr> </td> 
+
+> <tr> <td> 
+>
+> <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/Object.keys()) keys() </b>
+>
+> </tr> </td> 
+
+> <tr> <td> 
+>
+> <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/Object.values()) values() </b>
+>
+> </tr> </td> 
+
 > </tr> </td> </table>
->
->> - <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/PrototypeItem.new()) new() </b>
->
->> - <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/PrototypeItem.__value) __value </b>
->> - <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/PrototypeItem.__parent) __parent </b>
->> - <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/PrototypeItem.__writable) __writable </b>
->> - <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/PrototypeItem.__configurable) __configurable </b>
->> - <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/PrototypeItem.__enumerable) __enumerable </b>
-> <br>
+  
+</details>
