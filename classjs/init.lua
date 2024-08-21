@@ -1,6 +1,6 @@
 --[[
 
-LuaClassJS == https://github.com/ReRand/LuaClassJs
+LuaClassJS == https://github.com/shysolocup/LuaClassJs
 created by shysolocup
 
 --=={ Libs }==--
