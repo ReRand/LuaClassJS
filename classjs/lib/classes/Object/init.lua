@@ -9,8 +9,19 @@ return function(payload)
 
   }
 
+local function split(inputstr, sep)
+	if sep == nil then
+		sep = "%s"
+	end
+	local t = {}
+	for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
+		table.insert(t, str)
+	end
+	return t
+end
+
 if rbx then
-	for k, v in pairs(libs) do
+	for k, v in pairs(typePayload) do
 		v = v:gsub(".lua", "");
 		
 		local dir = split(v, "/");
@@ -20,7 +31,7 @@ if rbx then
 			path = path:FindFirstChild(d);
 		end
 
-		libs[k] = path;
+		typePayload[k] = path;
 	end
 end
 
