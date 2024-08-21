@@ -10,6 +10,7 @@ jobs:
     steps:
       - name: publish wiki
         uses: actions/checkout@v3
+      - run: cd /home/runner/work/LuaClassJS/LuaClassJS/wiki
       # - run: cd "$(wiki)"
       # - run: echo "$(wiki/test.txt)"
       # - run: git commit -m "$(wiki)"
