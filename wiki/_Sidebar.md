@@ -1,6 +1,8 @@
 # classjs docs
 ### [Home](https://github.com/ReRand/LuaClassJs/wiki)
 
+<br>
+
 <details>
 <summary> <b> Methods </b>  </summary>
 
