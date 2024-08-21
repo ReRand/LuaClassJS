@@ -1,6 +1,9 @@
 # classjs docs
 ### [Home](https://github.com/ReRand/LuaClassJs/wiki)
 
+<details>
+<summary> <b> Methods </b>  </summary>
+
 > <table> <tr> <td> 
 >
 > <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/class()) class() </b>
@@ -30,23 +33,58 @@
 > <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/getclass()) getclass() </b>
 >
 > </tr> </td> </table>
+  
+</details>
 
 <br>
 
+
+<details>
+
+<summary> [🛈](https://github.com/ReRand/LuaClassJs/wiki/Prototype) Prototype </b>  </summary>
+
 > <table> <tr> <td> 
 >
-> <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/Prototype) Prototype </b> 
+> <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/Prototype.new()) new() </b>
 >
+> </tr> </td> 
+
+> <tr> <td> 
+>
+> <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/Prototype.__isa()) __isa() </b>
+>
+> </tr> </td>
+
+> <tr> <td> 
+>
+> <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/Prototype.__super()) __super() </b>
+>
+> </tr> </td> 
+
 > </tr> </td> </table>
+
+
+> <table> <tr> <td> 
 >
->> - <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/Prototype.new()) new() </b>
->> - <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/Prototype.__isa()) __isa() </b>
->> - <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/Prototype.__super()) __super() </b>
+> <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/Prototype.__name) __name </b>
 >
->> - <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/Prototype.__name) __name </b>
->> - <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/Prototype.__instances) __instances </b>
->> - <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/Prototype.__prototype) __prototype </b>
-> <br>
+> </tr> </td> 
+
+> <tr> <td> 
+>
+> <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/Prototype.__instances) __instances </b>
+>
+> </tr> </td>
+
+> <tr> <td> 
+>
+> <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/Prototype.__prototype) __prototype </b>
+>
+> </tr> </td> 
+
+> </tr> </td> </table>
+  
+</details>
 
 <br>
 
