@@ -17,7 +17,7 @@ local Example = class "Example" {
 };
 
 
-print(Object.getPropertyDescriptors(Example));
+print(Object.getOwnPropertyDescriptors(Example));
 ```
 
 </td></tr>
@@ -41,9 +41,14 @@ print(Object.getPropertyDescriptors(Example));
 <td>
 
 #### Methods
-> - <b> [🛈](https://github.com/ReRand/LuaClassJS/wiki/Prototype.new()) temp() </b>
-> - <b> [🛈](https://github.com/ReRand/LuaClassJS/wiki/Prototype.__isa()) __isa() </b>
-> - <b> [🛈](https://github.com/ReRand/LuaClassJS/wiki/Prototype.__super()) __super() </b>
+> - <b> [🛈](https://github.com/ReRand/LuaClassJS/wiki/Object.defineProperties()) defineProperties() </b>
+> - <b> [🛈](https://github.com/ReRand/LuaClassJS/wiki/Object.defineProperty()) defineProperty() </b>
+> - <b> [🛈](https://github.com/ReRand/LuaClassJS/wiki/Object.entries()) entries() </b>
+> - <b> [🛈](https://github.com/ReRand/LuaClassJS/wiki/Object.getOwnPropertyDescriptors()) getOwnPropertyDescriptors() </b>
+> - <b> [🛈](https://github.com/ReRand/LuaClassJS/wiki/Object.keys()) keys() </b>
+> - <b> [🛈](https://github.com/ReRand/LuaClassJS/wiki/Object.values()) values() </b>
+
+<br>
 
 </td>
 
