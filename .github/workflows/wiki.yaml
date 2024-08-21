@@ -1,0 +1,9 @@
+name: wiki publish
+on:
+  release:
+    types: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Test"
