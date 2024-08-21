@@ -11,7 +11,7 @@ jobs:
       - name: publish wiki
         uses: actions/checkout@v3
       # - run: git clone https://github.com/shysolocup/LuaClassJS.wiki.git
-      - run: git config --global user.email {{ secrets.EMAIL }}
+      - run: git config --global user.email "{{ secrets.EMAIL }}"
       - run: git config --global user.name "shysolocup"
       - run: git add -A
       - run: git commit -m "test"
