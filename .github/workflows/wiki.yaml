@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - wiki/**
+      - .github/workflows/wiki.yaml
 jobs:
   publish_wiki:
     runs-on: ubuntu-latest
