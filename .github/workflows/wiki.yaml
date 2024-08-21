@@ -9,5 +9,5 @@ jobs:
     steps:
       - name: publish wiki
         uses: actions/checkout@v3
-      - run: cd ${wiki}
-      - run: git commit -m Update Wiki
+      #  - run: cd ${wiki}
+      - run: git commit -m {wiki}
