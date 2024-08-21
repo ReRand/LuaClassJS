@@ -8,4 +8,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: cd ${wiki}
-      - run: echo "${wiki}"
+      - run: git add .
