@@ -11,4 +11,4 @@ jobs:
       - name: publish wiki
         uses: actions/checkout@v3
       #  - run: cd ${wiki}
-      - run: git commit -m {wiki}
+      - run: git commit -m ${wiki}
