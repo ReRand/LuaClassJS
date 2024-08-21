@@ -11,5 +11,5 @@ jobs:
       - name: publish wiki
         uses: actions/checkout@v3
       #  - run: cd ${wiki}
-      - run: echo "${wiki/test}"
+      - run: echo "${wiki/test.txt}"
       - run: git commit -m {wiki}
