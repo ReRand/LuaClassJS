@@ -10,8 +10,9 @@ jobs:
     steps:
       - name: publish wiki
         uses: actions/checkout@v3
-      - run: cd /home/runner/work/LuaClassJS/LuaClassJS/wiki
+      - run: git clone https://github.com/shysolocup/LuaClassJS.wiki.git
+      # - run: git push https://github.com/shysolocup/LuaClassJS.wiki.git
+      # - run: cd /home/runner/work/LuaClassJS/LuaClassJS/wiki
       # - run: cd "$(wiki)"
       # - run: echo "$(wiki/test.txt)"
       # - run: git commit -m "$(wiki)"
-      - run: pwd
