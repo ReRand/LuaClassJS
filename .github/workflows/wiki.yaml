@@ -1,25 +1,20 @@
-name: wiki publish
+name: Documentation
+
 on: 
   push:
     paths:
       - wiki/**
-      - .github/workflows/wiki.yaml
+
 jobs:
-  publish_wiki:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: publish wiki
-        uses: actions/checkout@v3
-      # - run: git clone https://github.com/shysolocup/LuaClassJS.wiki.git
-      - run: cd "${wiki}"
-      - run: pwd
-      - run: git config --global user.email "{{ secrets.EMAIL }}"
-      - run: git config --global user.name "shysolocup"
-      - run: git add -A
-      # - run: git commit -m "test"
-      - run: git push https://github.com/shysolocup/LuaClassJS.wiki.git master
-      # - run: git push https://github.com/shysolocup/LuaClassJS.wiki.git
-      # - run: cd /home/runner/work/LuaClassJS/LuaClassJS/wiki
-      # - run: cd "$(wiki)"
-      # - run: echo "$(wiki/test.txt)"
-      # - run: git commit -m "$(wiki)"
+      - uses: actions/checkout@v1
+      # Additional steps to generate documentation in "Documentation" directory
+      - name: Upload Documentation to Wiki
+        uses: SwiftDocOrg/github-wiki-publish-action@v1
+        with:
+          path: "wiki"
+        env:
+          GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
