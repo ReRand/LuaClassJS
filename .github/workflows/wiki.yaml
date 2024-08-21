@@ -4,8 +4,10 @@ on:
     paths:
       - wiki/**
 jobs:
-  build:
+  publish_wiki:
     runs-on: ubuntu-latest
     steps:
+      - name: publish wiki
+        uses: actions/checkout@v3
       - run: cd ${wiki}
-      - run: git add .
+      - run: git commit -m 
