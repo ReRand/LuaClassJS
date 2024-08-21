@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - wiki/**
+      - .github/workflows/wiki.yaml
 
 jobs:
   build:
