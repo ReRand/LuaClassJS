@@ -59,7 +59,7 @@ created by shysolocup
 
 
 local _, rbx = pcall(function() return not not game end);
-local Config = rbx and require(script.Config) or require('Config.lua');
+local Config = rbx and require(script:WaitForChild("Config")) or require('Config.lua');
 
 
 if Config.forceRbx ~= nil then
@@ -67,7 +67,53 @@ if Config.forceRbx ~= nil then
 end
 
 
-_G.Protos = {};
+if not _G.Protos then
+	_G.Protos = {};
+	
+	--[[
+	if rbx then
+		
+		local rs = game:GetService("RunService");
+		
+		local luau = script:WaitForChild("lib"):WaitForChild("luau");
+		local prep = luau:WaitForChild("clientprep");
+		local rep = luau:WaitForChild("rep");
+		
+		
+		local function handleBoundary(t, k, v)
+			
+			rawset(t, k, v);
+			
+			local args = {"nuh uh", k, v, handleBoundary};
+			
+			print(t, k, v);
+			
+			if rs:IsServer() then
+
+				coroutine.wrap(function()
+					prep.OnServerEvent:Wait();
+					rep:FireAllClients(table.unpack(args));
+				end)()
+
+				prep:FireAllClients();
+
+			elseif rs:IsClient() then
+				
+				args[1] = game.Players.LocalPlayer;
+				
+				rep:FireServer(table.unpack(args));
+			end
+		end
+		
+		
+		_G.Protos = setmetatable(_G.Protos, {
+			__newindex = handleBoundary,
+		});
+		
+		
+		handleBoundary(_G.Protos, 0, nil);
+	end]]
+end
 
 
 local payload = {

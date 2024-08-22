@@ -17,7 +17,7 @@ return function(payload)
   
   		payload.Protos[value] = tbl;
   
-  		if config.useObjects then
+  		if payload.Config.useObjects then
   			return rawset(tbl, "__name", payload.PrototypeItem.new(tbl, value));
   		else
   			return rawset(tbl, "__name", value);
