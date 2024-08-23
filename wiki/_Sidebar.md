@@ -3,28 +3,36 @@
 
 <br>
 
+
 <details>
-<summary> <b> Methods </b>  </summary>
+<summary> <b> Keywords </b>  </summary>
 
 > <table> <tr> <td> 
 >
-> <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/class()) class() </b>
+> <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/class) class </b>
 >
 > </tr> </td> 
 
 > <tr> <td> 
 >
-> <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/extend()) extend() </b>
+> <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/extend) extend </b>
 >
 > </tr> </td>
 
 > <tr> <td> 
 >
-> <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/new()) new() </b>
+> <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/new) new </b>
 >
-> </tr> </td> 
+> </tr> </td> </table>
+  
+</details>
 
-> <tr> <td> 
+
+
+<details>
+<summary> <b> Methods </b>  </summary>
+
+> <table> <tr> <td> 
 >
 > <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/isa()) isa() </b>
 >
@@ -79,6 +87,18 @@
 > <tr> <td> 
 >
 > <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/Prototype.__prototype) __prototype </b>
+>
+> </tr> </td> 
+
+> <tr> <td> 
+>
+> <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/Prototype.__extendee) __extendee </b>
+>
+> </tr> </td> 
+
+> <tr> <td> 
+>
+> <b> [🛈](https://github.com/ReRand/LuaClassJs/wiki/Prototype.__class) __class </b>
 >
 > </tr> </td> 
 
@@ -183,3 +203,5 @@
 > </tr> </td> </table>
   
 </details>
+
+<br>

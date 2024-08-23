@@ -5,6 +5,11 @@ a class prototype template thing that dictates what should be the basis for all 
 
 the main big thing for the module that does all the big cool awesome things
 
+<br>
+
+to learn how to create class prototyps see keyword [class](https://github.com/ReRand/LuaClassJS/wiki/class)
+to learn how to create class instances see keyword [new](https://github.com/ReRand/LuaClassJS/wiki/new)
+
 <table>
 
 <tr><td> Lua </td></tr>
@@ -25,7 +30,7 @@ local Example = class "Example" {
 
     Type = 1
 
-};
+}
 
 
 print(Example) -- [class Example]
@@ -36,10 +41,17 @@ print(Example) -- [class Example]
 
 </td><td> 
 
-`Metatable`
+<b>Type:</b><br>
+- `Metatable`
+
+</td><td> 
+
+<b>Returns:</b><br>
+- [`Prototype`](https://github.com/ReRand/LuaClassJS/wiki/Prototype) (Instance)
 
 </td><td>
 
+<b>Sources:</b><br>
 - [classjs / lib / classes / Prototype](https://github.com/ReRand/LuaClassJS/tree/master/classjs/lib/classes/Prototype)
 
 </td></tr>

@@ -13,7 +13,7 @@ local class, new = require("classjs")("class", "new");
 
 local Example = class "Example" {
     Type = 1
-};
+}
 
 
 local ex = new "Example"();
@@ -30,10 +30,17 @@ print(ex.Type.__writable) -- true
 
 </td><td> 
 
-`Metatable`
+<b>Type:</b><br>
+- `Metatable`
+
+</td><td> 
+
+<b>Returns:</b><br>
+- [`PrototypeItem`](https://github.com/ReRand/LuaClassJS/wiki/PrototypeItem) (Instance)
 
 </td><td>
 
+<b>Sources:</b><br>
 - [classjs / lib / classes / PrototypeItem](https://github.com/ReRand/LuaClassJS/tree/master/classjs/lib/classes/PrototypeItem)
 - [classjs / lib / classes / Object](https://github.com/ReRand/LuaClassJS/tree/master/classjs/lib/classes/Object)
 

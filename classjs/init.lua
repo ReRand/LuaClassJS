@@ -140,13 +140,16 @@ end
 
 
 local libs = {
-	
+
+	-- keywords
+	class = "lib/keywords/class.lua", 				     -- creates a new class
+	new = "lib/keywords/new.lua", 					     -- initiates a created class
+	extend = "lib/keywords/extend.lua", 			     -- extends properties and methods onto into a new class
+
+
 	-- built-in functions
 	getclass = "lib/methods/getclass.lua", 			     -- gets class tables
-	class = "lib/methods/class.lua", 				     -- creates a new class
-	new = "lib/methods/new.lua", 					     -- initiates a created class
 	isa = "lib/methods/isa.lua", 					     -- checks if an instance is a given class
-	extend = "lib/methods/extend.lua", 			     -- extends properties and methods onto into a new class
 
 	
 	-- misc functions

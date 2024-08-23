@@ -25,10 +25,12 @@ print(Object.getOwnPropertyDescriptors(Example));
 
 </td><td> 
 
-`Table`
+<b>Type:</b><br>
+- `Table`
 
 </td><td>
 
+<b>Sources:</b><br>
 - [classjs / lib / classes / Object](https://github.com/ReRand/LuaClassJS/tree/master/classjs/lib/classes/Object)
 
 </td></tr>
