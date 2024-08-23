@@ -1,7 +1,9 @@
 <table>
 <tr><td>
 
-gets a class prototype<br>
+checks if a class instance's prototype matches up with a given prototype<br>
+there's also a version in class instances, see [Prototype.__isa()](https://github.com/ReRand/LuaClassJS/wiki/Prototype.__isa)
+
 
 to learn how to create classes see keyword [class](https://github.com/ReRand/LuaClassJS/wiki/class)
 
@@ -11,7 +13,7 @@ to learn how to create classes see keyword [class](https://github.com/ReRand/Lua
 <tr><td>
 
 ```lua
-local class, getclass = require("classjs")("class", "getclass");
+local class, new isa = require("classjs")("class", "new", "isa");
 
 
 class "Example" {
@@ -28,9 +30,7 @@ class "Example" {
 }
 
 
-local Example = getclass("Example");
-
-print(Example); -- [class Example]
+local pim = new "Example"()
 
 ```
 
@@ -50,7 +50,7 @@ print(Example); -- [class Example]
 </td><td>
 
 <b>Sources:</b><br>
-- [classjs / lib / methods / getclass](https://github.com/ReRand/LuaClassJS/tree/master/classjs/lib/methods/getclass.lua)
+- [classjs / lib / methods / isa](https://github.com/ReRand/LuaClassJS/tree/master/classjs/lib/methods/isa.lua)
 
 </td></tr>
 
@@ -62,8 +62,11 @@ print(Example); -- [class Example]
 <td>
 
 #### Arguments:
-> - [*name*](https://github.com/ReRand/LuaClassJS/wiki/Prototype.__name) `String`<br>
-> name of the class<br>
+> - [*a*](https://github.com/ReRand/LuaClassJS/wiki/Prototype) [`Prototype`](https://github.com/ReRand/LuaClassJS/wiki/Prototype) (Instance) <br>
+> class to check with<br>
+>
+> - *b* `String` || [`Prototype`](https://github.com/ReRand/LuaClassJS/wiki/Prototype) <br>
+> class to check with<br>
 > <br>
 
 <br>
