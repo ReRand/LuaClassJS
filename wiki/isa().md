@@ -16,21 +16,19 @@ to learn how to create classes see keyword [class](https://github.com/ReRand/Lua
 local class, new isa = require("classjs")("class", "new", "isa");
 
 
-class "Example" {
+local Example = class "Example" {
     constructor = function(self, name)
         self.Name = name;
     end,
 
-    Test = function(self)
-        return string.lower(self.Name)                     
-    end,
-
-    Type = 1
-
 }
 
 
-local pim = new "Example"()
+local pim = new "Example"("Pim");
+
+print(isa(pim, "Example")); -- true
+
+print(isa(pim, Example)); -- true
 
 ```
 
@@ -45,7 +43,7 @@ local pim = new "Example"()
 </td><td> 
 
 <b>Returns:</b><br>
-- [`Prototype`](https://github.com/ReRand/LuaClassJS/wiki/Prototype)
+- `Boolean`
 
 </td><td>
 
