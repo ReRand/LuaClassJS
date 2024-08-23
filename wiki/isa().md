@@ -61,7 +61,7 @@ print(isa(pim, Example)); -- true
 
 #### Arguments:
 > - [*a*](https://github.com/ReRand/LuaClassJS/wiki/Prototype) [`Prototype`](https://github.com/ReRand/LuaClassJS/wiki/Prototype) (Instance) <br>
-> class to check with<br>
+> class to check<br>
 >
 > - *b* `String` || [`Prototype`](https://github.com/ReRand/LuaClassJS/wiki/Prototype) <br>
 > class to check with<br>
