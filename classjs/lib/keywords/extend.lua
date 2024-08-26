@@ -10,10 +10,7 @@ return function(payload)
 
 			local self = payload.Prototype.new(nto)(proto);
 
-			function self.__prototype.__super(...)
-				local constructor = rawget(base, "constructor") and rawget(base, "constructor") or rawget(base.__prototype, "constructor");
-				return constructor(...);
-			end
+			self.__prototype.__super = payload.__super(base);
 
 			for k, v in pairs(self.__prototype) do
 				

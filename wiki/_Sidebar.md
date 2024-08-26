@@ -1,5 +1,5 @@
 # classjs docs
-### [Home](https://github.com/ReRand/LuaClassJs/wiki)
+### [Home](https://github.com/ReRand/LuaClassJs/wiki)  |  [Lib](https://github.com/ReRand/LuaClassJs/wiki/Lib)
 
 <br>
 

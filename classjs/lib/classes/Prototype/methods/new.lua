@@ -33,13 +33,7 @@ return function(pl, payload, Prototype)
 		end
 
 
-		function self.__prototype.__isa(self, n)
-			if type(n) == "table" then
-				return n.__name == self.__name;
-			else
-				return n == self.__name;
-			end
-		end
+		self.__prototype.__isa = pl.__isa;
 
 
 		Prototype.__index = pl.__protoindex;
